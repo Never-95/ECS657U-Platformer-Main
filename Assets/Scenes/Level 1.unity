@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 198483535}
   - component: {fileID: 198483534}
   - component: {fileID: 198483533}
-  - component: {fileID: 198483537}
   - component: {fileID: 198483538}
   - component: {fileID: 198483539}
   - component: {fileID: 198483540}
@@ -231,19 +230,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &198483537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198483532}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ac05c4d32d83249a8fedc765f6c9c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 0
 --- !u!54 &198483538
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -268,9 +254,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!114 &198483539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,10 +299,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4549ec6321cf640b2378b3096e700c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveValue: {x: 0, y: 0}
-  speed: 500
-  ScoreText: {fileID: 0}
-  WinText: {fileID: 0}
+  moveSpeed: 5
+  jumpforce: 5
+  isGrounded: 0
+  Jumping: 0
 --- !u!1 &897038581
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +314,7 @@ GameObject:
   - component: {fileID: 897038584}
   - component: {fileID: 897038583}
   - component: {fileID: 897038582}
+  - component: {fileID: 897038585}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -403,12 +390,27 @@ Transform:
   m_GameObject: {fileID: 897038581}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0.54, y: 0.12, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &897038585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897038581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b167584781d4b449118376c4cf488c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Xaxis: 3
+  Yaxis: 3
+  target: {fileID: 198483536}
 --- !u!1 &1156264201
 GameObject:
   m_ObjectHideFlags: 0
