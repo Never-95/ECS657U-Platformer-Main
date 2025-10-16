@@ -22,8 +22,8 @@ public class CameraSetting : MonoBehaviour
     void Update()
     {
         // --- Mouse input ---
-        float mouseX = Input.GetAxis("Mouse X") * Xaxis;
-        float mouseY = Input.GetAxis("Mouse Y") * Yaxis;
+        float mouseX = UnityEngine.Input.GetAxis("Mouse X") * Xaxis;
+        float mouseY = UnityEngine.Input.GetAxis("Mouse Y") * Yaxis;
         yRotation += mouseX;
         target.rotation = Quaternion.Euler(0f, yRotation, 0f); // Rotate the body left/right
         xRotation -= mouseY;
