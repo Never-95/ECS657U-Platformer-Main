@@ -1,52 +1,102 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements.Experimental;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    [Header("Movement Settings")]
+    public float baseMoveSpeed = 5f;
+    public float moveSpeed;
+    public float jumpForce = 5f;
+    public bool isGrounded = true;
+    public bool jumping = false;
 
     private Vector2 moveInput;
     private Rigidbody rb;
 
-    public float jumpforce = 5f;
-    public bool isGrounded=true;
-    public bool Jumping = false;
-    public InputValue inputValue;
+    [Header("Perk Settings")]
+    private bool canDoubleJump = false;
+    private bool hasDoubleJumped = false;
+
+    private bool speedBoostActive = false;
+    private float speedBoostTimer = 0f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        moveSpeed = baseMoveSpeed;
     }
 
     void FixedUpdate()
     {
-        // Move
+        // --- Movement ---
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
 
-        if (isGrounded && Jumping)
+        // --- Jump Logic ---
+        if (isGrounded && jumping)
         {
-            rb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
-            Jumping = false;
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            jumping = false;
             isGrounded = false;
+            hasDoubleJumped = false;
+        }
+        else if (canDoubleJump && jumping && !hasDoubleJumped)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            hasDoubleJumped = true;
+            jumping = false;
+        }
+
+        // --- Handle Speed Boost Timer ---
+        if (speedBoostActive)
+        {
+            speedBoostTimer -= Time.fixedDeltaTime;
+            if (speedBoostTimer <= 0f)
+            {
+                moveSpeed = baseMoveSpeed;
+                speedBoostActive = false;
+            }
         }
     }
+
+    void OnMove(InputValue value)
+    {
+        moveInput = value.Get<Vector2>();
+    }
+
     void OnJump(InputValue inputValue)
     {
-        if(inputValue.isPressed && isGrounded)
+        if (inputValue.isPressed)
         {
-            Jumping = true;
+            jumping = true;
         }
     }
+
     void OnCollisionEnter(Collision collision)
     {
         isGrounded = true;
     }
-    void OnMove(InputValue value)
+
+    // --- PERK FUNCTIONS ---
+    public void ActivateSpeedBoost(float multiplier, float duration)
     {
-        moveInput = value.Get<Vector2>();
-        Debug.Log("Move Input: " + moveInput);
+        moveSpeed = baseMoveSpeed * multiplier;
+        speedBoostTimer = duration;
+        speedBoostActive = true;
     }
 
+    public void EnableDoubleJump(float duration)
+    {
+        StartCoroutine(DoubleJumpRoutine(duration));
+    }
+
+    private System.Collections.IEnumerator DoubleJumpRoutine(float duration)
+    {
+        canDoubleJump = true;
+        yield return new WaitForSeconds(duration);
+        canDoubleJump = false;
+    }
 }
+
