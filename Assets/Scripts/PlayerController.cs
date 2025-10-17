@@ -1,49 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
+using UnityEngine.UIElements.Experimental;
 
 public class PlayerController : MonoBehaviour
 {
-    public Vector2 moveValue;
-    public float speed;
-    private int count;
-    private int numPickups = 4;
-    public TextMeshProUGUI ScoreText;
-    public TextMeshProUGUI WinText;
+    public float moveSpeed = 5f;
+
+    private Vector2 moveInput;
+    private Rigidbody rb;
+
+    public float jumpforce = 5f;
+    public bool isGrounded=true;
+    public bool Jumping = false;
+    public InputValue inputValue;
     void Start()
     {
-        count = 0;
-        WinText.text = "";
-        SetCountText();
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+    }
+
+    void FixedUpdate()
+    {
+        // Move
+        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
+        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+
+        if (isGrounded && Jumping)
+        {
+            rb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
+            Jumping = false;
+            isGrounded = false;
+        }
+    }
+    void OnJump(InputValue inputValue)
+    {
+        if(inputValue.isPressed && isGrounded)
+        {
+            Jumping = true;
+        }
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        isGrounded = true;
     }
     void OnMove(InputValue value)
     {
-        moveValue = value.Get<Vector2>();
-    }
-    void FixedUpdate()
-    {
-        Vector3 movement = new Vector3(moveValue.x, 0.0f, moveValue.y);
-        GetComponent<Rigidbody>().AddForce(movement * speed * Time.fixedDeltaTime);
+        moveInput = value.Get<Vector2>();
+        Debug.Log("Move Input: " + moveInput);
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "PickUp")
-        {
-            other.gameObject.SetActive(false);
-            count = count + 1;
-            SetCountText();
-        }
-    }
-
-    private void SetCountText()
-    {
-        ScoreText.text = "Score: " + count.ToString();
-        if (count >= numPickups)
-        {
-            WinText.text = "You Win!";
-        }
-    }
 }
