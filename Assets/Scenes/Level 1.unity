@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 198483539}
   - component: {fileID: 198483540}
   - component: {fileID: 198483541}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 1445131807}
   - component: {fileID: 1445131806}
   - component: {fileID: 1445131805}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
