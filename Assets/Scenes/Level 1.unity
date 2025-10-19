@@ -227,7 +227,8 @@ Transform:
   m_LocalPosition: {x: -2.93, y: 20.71, z: -0.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1797456487}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &198483539
@@ -1243,7 +1244,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 739593503}
+    m_TransformParent: {fileID: 198483536}
     m_Modifications:
     - target: {fileID: 3503990344862308524, guid: fa832a10e78c03943aa38f0c4cdab6aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1424,9 +1425,11 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 739593503}
   - {fileID: 897038584}
   - {fileID: 1156264203}
   - {fileID: 739593503}
+  - {fileID: 1212537624}
   - {fileID: 198483536}
   - {fileID: 1445131807}
   - {fileID: 1557152856}
