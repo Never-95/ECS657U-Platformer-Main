@@ -8,7 +8,7 @@ public class Bouncepad : MonoBehaviour
         public float ContactTime;
     }
 
-    float LaunchDelay = 5f;
+    float LaunchDelay = 0.1f;
     public float LaunchForce = 10f;
     ForceMode LaunchMode = ForceMode.Impulse;
 
@@ -32,9 +32,10 @@ public class Bouncepad : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision){
-        Debug.Log($"{collision.gameObject.name} touched Bouncepad");
+        //Debug.Log($"{collision.gameObject.name} touched Bouncepad");
 
         //Retrieve Rigidbody and add to target list
+        //This makes it work with more than just the player
         Rigidbody rb;
         if (collision.gameObject.TryGetComponent<Rigidbody>(out rb)){
             Targets[rb] = new BouncePadTarget() {ContactTime = Time.timeSinceLevelLoad};
@@ -47,6 +48,6 @@ public class Bouncepad : MonoBehaviour
 
     void Launch(Rigidbody target){
         target.AddForce(transform.up * LaunchForce, LaunchMode);
-        Debug.Log("Launched!");
+        //Debug.Log("Launched!");
     }
 }
