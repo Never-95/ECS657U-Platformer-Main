@@ -28,7 +28,7 @@ public class EnemyAIBehaviour : MonoBehaviour
     {
         if (!isChasing)
         {
-            Debug.Log("Patrolling");
+            //Debug.Log("Patrolling");
             OnPatrol();
         }
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -36,7 +36,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         {
             isChasing = true;
             isAttacking = false;
-            Debug.Log("Chasing");
+            //Debug.Log("Chasing");
             OnChase();
         }
         else if (distanceToPlayer <= attackRange)
@@ -96,6 +96,8 @@ public class EnemyAIBehaviour : MonoBehaviour
     }
     void OnAttack()
     {
+        player.GetComponent<PlayerHealth>().TakeDamage(1);
+        player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 5f, ForceMode.Impulse);
         // Logic for attacking the player
     }
 
