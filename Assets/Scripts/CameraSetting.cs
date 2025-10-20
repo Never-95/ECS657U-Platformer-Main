@@ -16,7 +16,7 @@ public class CameraSetting : MonoBehaviour
         Cursor.visible = false;
         
         // Place the camera at the target's position initially
-        transform.position = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
+        transform.position = target.position;
     }
 
     void Update()
@@ -31,7 +31,7 @@ public class CameraSetting : MonoBehaviour
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
 
         // --- Keep camera on player position ---
-        transform.position = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
+        transform.position = target.position;
     }
 }
  
