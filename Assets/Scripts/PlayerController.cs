@@ -1,52 +1,114 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements.Experimental;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    [Header("Movement Settings")]
+    public float baseMoveSpeed = 5f;
+    public float moveSpeed;
+    public bool isGrounded = true;
+    public bool jumping = false;
 
     private Vector2 moveInput;
     private Rigidbody rb;
 
-    public float jumpforce = 5f;
-    public bool isGrounded=true;
-    public bool Jumping = false;
-    public InputValue inputValue;
+    [Header("Perk Settings")]
+    private bool canDoubleJump = false;
+    private bool hasDoubleJumped = false;
+
+    private bool speedBoostActive = false;
+    private float speedBoostTimer = 0f;
+
+    [Header("Jump Settings")]
+    public float jumpForce = 5f;
+    public float doubleJumpMultiplier = 1.5f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        rb.useGravity = true;  // Make sure this is on
+        moveSpeed = baseMoveSpeed;
     }
 
     void FixedUpdate()
     {
-        // Move
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
-
-        if (isGrounded && Jumping)
+        
+        if (isGrounded)
         {
-            rb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
-            Jumping = false;
+            // Ground movement - use MovePosition
+            rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            // Air movement - use velocity for horizontal, preserve vertical
+            Vector3 airMove = move * moveSpeed * Time.fixedDeltaTime;
+            rb.velocity = new Vector3(airMove.x / Time.fixedDeltaTime, rb.velocity.y, airMove.z / Time.fixedDeltaTime);
+        }
+        
+        if (isGrounded && jumping)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            jumping = false;
             isGrounded = false;
+            hasDoubleJumped = false;
+        }
+        else if (canDoubleJump && jumping && !hasDoubleJumped)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            float doubleJumpForce = jumpForce * doubleJumpMultiplier;
+            rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
+            hasDoubleJumped = true;
+            jumping = false;
+        }
+        
+        if (speedBoostActive)
+        {
+            speedBoostTimer -= Time.fixedDeltaTime;
+            if (speedBoostTimer <= 0f)
+            {
+                moveSpeed = baseMoveSpeed;
+                speedBoostActive = false;
+            }
         }
     }
+
+    void OnMove(InputValue value)
+    {
+        moveInput = value.Get<Vector2>();
+    }
+
     void OnJump(InputValue inputValue)
     {
-        if(inputValue.isPressed && isGrounded)
+        if (inputValue.isPressed)
         {
-            Jumping = true;
+            jumping = true;
         }
     }
+
     void OnCollisionEnter(Collision collision)
     {
         isGrounded = true;
     }
-    void OnMove(InputValue value)
+
+    public void ActivateSpeedBoost(float multiplier, float duration)
     {
-        moveInput = value.Get<Vector2>();
-        //Debug.Log("Move Input: " + moveInput);
+        moveSpeed = baseMoveSpeed * multiplier;
+        speedBoostTimer = duration;
+        speedBoostActive = true;
     }
 
+    public void EnableDoubleJump(float duration)
+    {
+        StartCoroutine(DoubleJumpRoutine(duration));
+    }
+
+    private System.Collections.IEnumerator DoubleJumpRoutine(float duration)
+    {
+        canDoubleJump = true;
+        yield return new WaitForSeconds(duration);
+        canDoubleJump = false;
+    }
 }
+
