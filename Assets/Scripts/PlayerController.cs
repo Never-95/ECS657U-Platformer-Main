@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = true;
     public bool jumping = false;
 
+    //Contains current checkpoint
+    private string checkpoint = "";
+
     private Vector2 moveInput;
     private Rigidbody rb;
 
@@ -109,6 +112,11 @@ public class PlayerController : MonoBehaviour
         canDoubleJump = true;
         yield return new WaitForSeconds(duration);
         canDoubleJump = false;
+    }
+
+    public void CheckCurrentCheckpoint(string checkpoint)
+    {
+        Debug.Log("check current checkpoint");
     }
 }
 
