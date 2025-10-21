@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         if (isGrounded)
         {
             // Ground movement - use MovePosition
@@ -87,10 +87,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        isGrounded = true;
-    }
 
     public void ActivateSpeedBoost(float multiplier, float duration)
     {
