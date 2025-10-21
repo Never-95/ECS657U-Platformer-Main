@@ -27,16 +27,26 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        rb.useGravity = true;  // Make sure this is on
         moveSpeed = baseMoveSpeed;
     }
 
     void FixedUpdate()
     {
-
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
-
-
+        
+        if (isGrounded)
+        {
+            // Ground movement - use MovePosition
+            rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            // Air movement - use velocity for horizontal, preserve vertical
+            Vector3 airMove = move * moveSpeed * Time.fixedDeltaTime;
+            rb.velocity = new Vector3(airMove.x / Time.fixedDeltaTime, rb.velocity.y, airMove.z / Time.fixedDeltaTime);
+        }
+        
         if (isGrounded && jumping)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -48,11 +58,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             float doubleJumpForce = jumpForce * doubleJumpMultiplier;
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
             hasDoubleJumped = true;
             jumping = false;
         }
-
+        
         if (speedBoostActive)
         {
             speedBoostTimer -= Time.fixedDeltaTime;
