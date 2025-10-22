@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = true;
     public bool jumping = false;
 
-    //Contains current checkpoint respawn position
-    private Vector3 checkpointpos = new Vector3(0,0,0);
+    
 
     private Vector2 moveInput;
     private Rigidbody rb;
@@ -26,6 +25,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     public float doubleJumpMultiplier = 1.5f;
 
+    [Header("Other Settings")]
+    //Contains current checkpoint respawn position
+    private Vector3 checkpointpos = new Vector3(0, 0, 0);
+
+    public bool icy = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,6 +41,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (icy == true)
+        {
+            //to implement
+        }
+
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         if (isGrounded)
