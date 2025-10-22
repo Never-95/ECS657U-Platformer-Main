@@ -32,7 +32,7 @@ public class Bouncepad : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision){
-        //Debug.Log($"{collision.gameObject.name} touched Bouncepad");
+        Debug.Log($"{collision.gameObject.name} touched Bouncepad");
 
         //Retrieve Rigidbody and add to target list
         //This makes it work with more than just the player
