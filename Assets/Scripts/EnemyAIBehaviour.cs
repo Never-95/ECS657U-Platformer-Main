@@ -27,7 +27,7 @@ public class EnemyAIBehaviour : MonoBehaviour
     void Update()
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
-        if (playerController != null && playerController.isInvisible())
+        if (playerController != null && playerController.IsInvisible())
         {
             if (!walkPointSet || !isChasing)
             {

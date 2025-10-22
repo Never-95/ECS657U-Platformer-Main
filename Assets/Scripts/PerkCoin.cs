@@ -2,7 +2,7 @@
 
 public class PerkCoin : MonoBehaviour
 {
-    public enum PerkType { SpeedBoost, DoubleJump }
+    public enum PerkType { SpeedBoost, DoubleJump, Invisibility }
     public PerkType perkType;
     public float effectDuration = 5f;
     public float speedMultiplier = 2f;
