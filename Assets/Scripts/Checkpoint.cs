@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //respawn position
+    public Vector3 pos; 
+
     void Start()
     {
-        
+        pos = new Vector3(transform.position.x, transform.position.y + 1.1f, transform.position.z);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -18,13 +19,10 @@ public class Checkpoint : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"{collision.gameObject.name} touched {gameObject.name}");
-
+        //checks if player object is touching checkpoint and updates it to that one within the PlayerController script
         if (collision.gameObject.name == "Player")
         {
-            Debug.Log($"touched touet");
-            collision.gameObject.CheckCurrentCheckpoint("boom");
-            //controlscript.CheckCurrentCheckpoint("boom");
+            collision.gameObject.GetComponent<PlayerController>().CheckCurrentCheckpoint(pos);
         }
 
     }

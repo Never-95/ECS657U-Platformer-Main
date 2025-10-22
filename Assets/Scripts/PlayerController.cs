@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = true;
     public bool jumping = false;
 
-    //Contains current checkpoint
-    private string checkpoint = "";
+    //Contains current checkpoint respawn position
+    private Vector3 checkpointpos = new Vector3(0,0,0);
 
     private Vector2 moveInput;
     private Rigidbody rb;
@@ -90,6 +90,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnRespawn(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            transform.position = checkpointpos;
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         isGrounded = true;
@@ -114,9 +122,13 @@ public class PlayerController : MonoBehaviour
         canDoubleJump = false;
     }
 
-    public void CheckCurrentCheckpoint(string checkpoint)
+    public void CheckCurrentCheckpoint(Vector3 newcheckpointpos)
     {
         Debug.Log("check current checkpoint");
+        if (newcheckpointpos != checkpointpos)
+        {
+            checkpointpos = newcheckpointpos;
+        }
     }
 }
 
