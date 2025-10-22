@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = true;
     public bool jumping = false;
 
+    //Contains current checkpoint respawn position
+    private Vector3 checkpointpos = new Vector3(0,0,0);
+
     private Vector2 moveInput;
     private Rigidbody rb;
 
@@ -27,14 +30,14 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        rb.useGravity = true;  // Make sure this is on
+        rb.useGravity = true;
         moveSpeed = baseMoveSpeed;
     }
 
     void FixedUpdate()
     {
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         if (isGrounded)
         {
             // Ground movement - use MovePosition
@@ -87,6 +90,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnRespawn(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            transform.position = checkpointpos;
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         isGrounded = true;
@@ -126,6 +137,21 @@ public class PlayerController : MonoBehaviour
     public bool IsInvisible()
     {
         return isInvisible;
+    }  // ← ADDED THIS CLOSING BRACE
+
+    public void CheckCurrentCheckpoint(Vector3 newcheckpointpos)
+    {
+        Debug.Log("check current checkpoint");
+        if (newcheckpointpos != checkpointpos)
+        {
+            checkpointpos = newcheckpointpos;
+        }
+    }
+
+    public void Death()
+    {
+        //respawns player
+        transform.position = checkpointpos;
     }
 }
 
