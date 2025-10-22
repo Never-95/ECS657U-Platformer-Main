@@ -26,6 +26,17 @@ public class EnemyAIBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        if (playerController != null && playerController.isInvisible())
+        {
+            if (!walkPointSet || !isChasing)
+            {
+                OnPatrol();
+            }
+            isChasing = false;
+            isAttacking = false;
+            return; 
+        }
         if (!isChasing)
         {
             Debug.Log("Patrolling");

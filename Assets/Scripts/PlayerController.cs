@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
     [Header("Perk Settings")]
     private bool canDoubleJump = false;
     private bool hasDoubleJumped = false;
-
     private bool speedBoostActive = false;
     private float speedBoostTimer = 0f;
+    private bool isInvisible = false;
 
     [Header("Jump Settings")]
     public float jumpForce = 5f;
@@ -109,6 +109,23 @@ public class PlayerController : MonoBehaviour
         canDoubleJump = true;
         yield return new WaitForSeconds(duration);
         canDoubleJump = false;
+    }
+
+    public void ActivateInvisibility(float duration)
+    {
+        StartCoroutine(InvisibilityRoutine(duration));
+    }
+
+    private System.Collections.IEnumerator InvisibilityRoutine(float duration)
+    {
+        isInvisible = true;
+        yield return new WaitForSeconds(duration);
+        isInvisible = false;
+    }
+
+    public bool IsInvisible()
+    {
+        return isInvisible;
     }
 }
 

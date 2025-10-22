@@ -23,6 +23,9 @@ public class PerkCoin : MonoBehaviour
                     case PerkType.DoubleJump:
                         player.EnableDoubleJump(effectDuration);
                         break;
+                    case PerkType.Invisibility:
+                        player.ActivateInvisibility(effectDuration);
+                        break;
                 }
 
                 Destroy(gameObject, 0.1f);
