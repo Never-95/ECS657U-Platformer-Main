@@ -18,9 +18,9 @@ public class PlayerController : MonoBehaviour
     [Header("Perk Settings")]
     private bool canDoubleJump = false;
     private bool hasDoubleJumped = false;
-
     private bool speedBoostActive = false;
     private float speedBoostTimer = 0f;
+    private bool isInvisible = false;
 
     [Header("Jump Settings")]
     public float jumpForce = 5f;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        rb.useGravity = true;  // Make sure this is on
+        rb.useGravity = true;
         moveSpeed = baseMoveSpeed;
     }
 
@@ -122,6 +122,23 @@ public class PlayerController : MonoBehaviour
         canDoubleJump = false;
     }
 
+    public void ActivateInvisibility(float duration)
+    {
+        StartCoroutine(InvisibilityRoutine(duration));
+    }
+
+    private System.Collections.IEnumerator InvisibilityRoutine(float duration)
+    {
+        isInvisible = true;
+        yield return new WaitForSeconds(duration);
+        isInvisible = false;
+    }
+
+    public bool IsInvisible()
+    {
+        return isInvisible;
+    }  // ← ADDED THIS CLOSING BRACE
+
     public void CheckCurrentCheckpoint(Vector3 newcheckpointpos)
     {
         Debug.Log("check current checkpoint");
@@ -133,7 +150,6 @@ public class PlayerController : MonoBehaviour
 
     public void Death()
     {
-
         //respawns player
         transform.position = checkpointpos;
     }

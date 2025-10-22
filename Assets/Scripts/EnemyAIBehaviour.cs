@@ -26,6 +26,17 @@ public class EnemyAIBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        if (playerController != null && playerController.IsInvisible())
+        {
+            if (!walkPointSet || !isChasing)
+            {
+                OnPatrol();
+            }
+            isChasing = false;
+            isAttacking = false;
+            return; 
+        }
         if (!isChasing)
         {
             Debug.Log("Patrolling");
@@ -96,6 +107,11 @@ public class EnemyAIBehaviour : MonoBehaviour
     }
     void OnAttack()
     {
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(20f);
+        }
         //player.GetComponent<PlayerHealth>().TakeDamage(1);
         player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 5f, ForceMode.Impulse);
         // Logic for attacking the player
