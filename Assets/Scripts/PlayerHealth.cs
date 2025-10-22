@@ -9,20 +9,21 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health Settings")]
     public float maxHealth = 100f;
     private float currentHealth;
-    public Image healthBar;
-
+    public Slider healthBarSlider;
+    
     [Header("Oxygen Settings")]
     public float maxOxygen = 60f;
     public float currentOxygen;
-    public float oxygenDepletionRate = 5f; 
+    public float oxygenDepletionRate = 5f;
     public float oxygenDamageRate = 10f;
-    public Image oxygenBarFill;
-
+    public Slider oxygenBarSlider;
+    
     [Header("Damage Settings")]
     public float damageAmount = 20f;
-    private float oxygenDepletionTimer = 0f;
+    
+    private float oxygenDepletionTimer = 0f;  // You named it this
     private bool oxygenDepleted = false;
-    // Start is called before the first frame update
+    
     void Start()
     {
         currentHealth = maxHealth;
@@ -30,74 +31,84 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
         UpdateOxygenBar();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        oxygenTimer += Time.deltaTime;
-        if (oxygenTimer >= oxygenDepletionRate)
+        oxygenDepletionTimer += Time.deltaTime;  // FIXED: was "oxygenTimer"
+        
+        if (oxygenDepletionTimer >= oxygenDepletionRate)
         {
             currentOxygen -= oxygenDepletionRate;
-            oxygenTimer = 0f;
-        
+            oxygenDepletionTimer = 0f;  // FIXED: was "oxygenTimer"
+            
             if (currentOxygen <= 0)
             {
                 currentOxygen = 0;
-                
                 if (!oxygenDepleted)
                 {
                     oxygenDepleted = true;
                     Debug.Log("Oxygen depleted! Starting to take damage.");
                 }
-            
             }
-        
             UpdateOxygenBar();
         }
-
+        
         if (oxygenDepleted)
         {
-            TakeDamage(oxygenDamageAmount * Time.deltaTime);
-        }    
+            TakeDamage(oxygenDamageRate * Time.deltaTime);  // FIXED: was "oxygenDamageAmount"
+        }
     }
-
+    
     public void TakeDamage(float amount)
     {
-        currentHealth -= damage;
+        currentHealth -= amount;  // FIXED: was "damage"
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthBar();
-
+        
         if (currentHealth <= 0f)
         {
             Die();
         }
     }
-
-    public void Heal (float amount)
+    
+    public void Heal(float amount)
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         UpdateHealthBar();
-        Debug.log("Player healed by " + amount + " points.");
+        Debug.Log("Player healed by " + amount + " points.");  // FIXED: capital L in Log
     }
-
+    
+    public void RestoreOxygen(float amount)  // ADD THIS METHOD
+    {
+        currentOxygen += amount;
+        currentOxygen = Mathf.Clamp(currentOxygen, 0f, maxOxygen);
+        
+        if (currentOxygen > 0f)
+        {
+            oxygenDepleted = false;
+        }
+        
+        UpdateOxygenBar();
+        Debug.Log("Oxygen restored by " + amount + " seconds.");
+    }
+    
     public void UpdateHealthBar()
     {
-        if (healthBar != null)
+        if (healthBarSlider != null)
         {
-            healthBar.fillAmount = currentHealth / maxHealth;
-        
+            healthBarSlider.value = currentHealth / maxHealth;
         }
     }
-
+    
     public void UpdateOxygenBar()
     {
-        if (oxygenBarFill != null)
+        if (oxygenBarSlider != null)
         {
-            oxygenBarFill.fillAmount = currentOxygen / maxOxygen;
+            oxygenBarSlider.value = currentOxygen / maxOxygen;
         }
     }
-
+    
     public void Die()
     {
         Debug.Log("Player has died.");

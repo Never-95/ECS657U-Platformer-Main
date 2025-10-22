@@ -110,7 +110,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(playerHealth.enemyDamage);
+            playerHealth.TakeDamage(20f);
         }
         //player.GetComponent<PlayerHealth>().TakeDamage(1);
         player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 5f, ForceMode.Impulse);
