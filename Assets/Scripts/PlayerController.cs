@@ -130,5 +130,12 @@ public class PlayerController : MonoBehaviour
             checkpointpos = newcheckpointpos;
         }
     }
+
+    public void Death()
+    {
+
+        //respawns player
+        transform.position = checkpointpos;
+    }
 }
 
