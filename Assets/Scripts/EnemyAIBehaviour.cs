@@ -107,6 +107,11 @@ public class EnemyAIBehaviour : MonoBehaviour
     }
     void OnAttack()
     {
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(playerHealth.enemyDamage);
+        }
         //player.GetComponent<PlayerHealth>().TakeDamage(1);
         player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 5f, ForceMode.Impulse);
         // Logic for attacking the player

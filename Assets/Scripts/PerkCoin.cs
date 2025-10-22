@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PerkCoin : MonoBehaviour
 {
-    public enum PerkType { SpeedBoost, DoubleJump, Invisibility, LevelEnd }
+    public enum PerkType { SpeedBoost, DoubleJump, Invisibility, LevelEnd, HealthRestore, OxygenRestore }
     public PerkType perkType;
     public float effectDuration = 5f;
     public float speedMultiplier = 2f;
@@ -15,6 +15,9 @@ public class PerkCoin : MonoBehaviour
     public float levelEndDelay = 1f;
     public TextMeshProUGUI levelCompleteText;
     public string completionMessage = "Congratulations! Level Complete!";
+
+    [Header ("Health/Oxygen Restore Settings")]
+    public float restoreAmount = 30f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,6 +41,20 @@ public class PerkCoin : MonoBehaviour
                     case PerkType.LevelEnd:
                         StartCoroutine(EndLevelProcess());
                         return;
+                    case PerkType.HealthRestore:
+                        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+                        if (playerHealth != null)
+                        {
+                            playerHealth.Heal(restoreAmount);
+                        }
+                        break;
+                    case PerkType.OxygenRestore:
+                        PlayerHealth playerOxygen = player.GetComponent<PlayerHealth>();
+                        if (playerOxygen != null)
+                        {
+                            playerOxygen.RestoreOxygen(restoreAmount);
+                        }
+                        break;
                 }
 
                 Destroy(gameObject, 0.1f);
