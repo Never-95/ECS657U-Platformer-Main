@@ -32,8 +32,6 @@ public class Bouncepad : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision){
-        Debug.Log($"{collision.gameObject.name} touched Bouncepad");
-
         //Retrieve Rigidbody and add to target list
         //This makes it work with more than just the player
         Rigidbody rb;
@@ -48,6 +46,5 @@ public class Bouncepad : MonoBehaviour
 
     void Launch(Rigidbody target){
         target.AddForce(transform.up * LaunchForce, LaunchMode);
-        //Debug.Log("Launched!");
     }
 }
