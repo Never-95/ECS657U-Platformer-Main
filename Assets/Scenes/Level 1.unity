@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -389,7 +389,8 @@ Transform:
   m_LocalPosition: {x: -3.432, y: 20.71, z: 0.154}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 708205221}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &198483539
@@ -487,6 +488,7 @@ MonoBehaviour:
   oxygenDamageRate: 10
   oxygenBarSlider: {fileID: 1117909866}
   damageAmount: 20
+  damageTimer: 20
 --- !u!1 &204369525
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +915,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 198483532}
   agent: {fileID: 617086631}
+  chaseRange: 10
   walkpointRange: 10
+  lastAttackTime: 0
+  attackTimer: 2
 --- !u!1 &660551569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,6 +1246,11 @@ MonoBehaviour:
   levelCompleteText: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+--- !u!4 &708205221 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3503990344862308524, guid: fa832a10e78c03943aa38f0c4cdab6aa, type: 3}
+  m_PrefabInstance: {fileID: 316637836150006030}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &739593502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2103,7 +2113,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1847808047}
   - {fileID: 273646409}
   m_Father: {fileID: 1169004131}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3418,5 +3427,4 @@ SceneRoots:
   - {fileID: 676717956}
   - {fileID: 70998950}
   - {fileID: 1891419604731026955}
-  - {fileID: 1933867192}
   - {fileID: 1169004131}
