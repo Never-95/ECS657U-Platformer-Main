@@ -121,6 +121,26 @@ public class PlayerHealth : MonoBehaviour
     public void Die()
     {
         Debug.Log("Player has died.");
+        StartCoroutine(RespawnDelay());
+    }
+
+    private System.Collections.IEnumerator RespawnDelay()
+    {
+        // Optional: Disable player controls during respawn
+        PlayerController pc = GetComponent<PlayerController>();
+        if (pc != null)
+        {
+            pc.enabled = false;
+        }
+        
+        yield return new WaitForSeconds(2f);  // 2 second delay
+        
+        // Re-enable controls
+        if (pc != null)
+        {
+            pc.enabled = true;
+        }
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

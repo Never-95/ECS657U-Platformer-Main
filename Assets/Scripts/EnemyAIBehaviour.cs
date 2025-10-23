@@ -20,6 +20,9 @@ public class EnemyAIBehaviour : MonoBehaviour
     public float lastAttackTime;
     public float attackCooldown = 2f;
 
+    public float normalSpeed = 3.5f;
+    public float retreatSpeed = 6f;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -27,6 +30,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         
         // Store the enemy's starting position
         startPosition = transform.position;
+        agent.speed = normalSpeed;
     }
 
     void Update()
@@ -49,6 +53,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         {
             isChasing = true;
             isAttacking = false;
+            agent.speed = normalSpeed;
             OnChase();
         }
         // Attack logic
@@ -70,6 +75,7 @@ public class EnemyAIBehaviour : MonoBehaviour
     void OnChase()
     {
         agent.isStopped = false;
+        agent.speed = normalSpeed;
         agent.SetDestination(player.transform.position);
     }
 
@@ -98,7 +104,7 @@ public class EnemyAIBehaviour : MonoBehaviour
             if (playerRb != null)
             {
                 Vector3 knockbackDirection = (player.transform.position - transform.position).normalized;
-                playerRb.AddForce(knockbackDirection * 5f, ForceMode.Impulse);
+                playerRb.AddForce(knockbackDirection * 30f, ForceMode.Impulse);
             }
         }
     }
@@ -115,6 +121,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         else
         {
             agent.isStopped = true; // Stop when reached start position
+            agent.speed = normalSpeed;
         }
     }
 }
