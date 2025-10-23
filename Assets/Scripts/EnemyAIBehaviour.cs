@@ -5,18 +5,20 @@ using UnityEngine.AI;
 
 public class EnemyAIBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject player;
     public NavMeshAgent agent;
     private bool isChasing = false;
     private bool isAttacking = false;
-    private float chaseRange = 10f;
+    public float chaseRange = 10f;
     private float attackRange = 2f;
 
     //Patroling
     public float walkpointRange;
     private Vector3 walkPoint;
     private bool walkPointSet;
+
+    public float lastAttackTime;
+    public float attackTimer = 2f;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -39,7 +41,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         }
         if (!isChasing)
         {
-            Debug.Log("Patrolling");
+            //Debug.Log("Patrolling");
             OnPatrol();
         }
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -54,7 +56,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         {
             isChasing = false;
             isAttacking = true;
-            Debug.Log("Attacking");
+            //Debug.Log("Attacking");
             OnAttack();
         }
         else
@@ -107,14 +109,15 @@ public class EnemyAIBehaviour : MonoBehaviour
     }
     void OnAttack()
     {
+        agent.SetDestination(transform.position);
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
+        if (playerHealth != null && Time.time >= lastAttackTime + attackTimer)
         {
+            lastAttackTime = Time.time;
             playerHealth.TakeDamage(20f);
         }
         //player.GetComponent<PlayerHealth>().TakeDamage(1);
         player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 5f, ForceMode.Impulse);
-        // Logic for attacking the player
     }
 
 }

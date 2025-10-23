@@ -23,6 +23,9 @@ public class PlayerHealth : MonoBehaviour
     
     private float oxygenDepletionTimer = 0f;  // You named it this
     private bool oxygenDepleted = false;
+
+    public float damageTimer = 20f;
+    private float lastDamageTime;
     
     void Start()
     {
@@ -55,16 +58,22 @@ public class PlayerHealth : MonoBehaviour
         
         if (oxygenDepleted)
         {
-            TakeDamage(oxygenDamageRate * Time.deltaTime);  // FIXED: was "oxygenDamageAmount"
+            TakeDamage(oxygenDamageRate);  // FIXED: was "oxygenDamageAmount"
         }
     }
     
     public void TakeDamage(float amount)
     {
-        currentHealth -= amount;  // FIXED: was "damage"
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UpdateHealthBar();
-        
+        if (Time.time >= lastDamageTime + damageTimer)
+        {
+            lastDamageTime = Time.time;
+            currentHealth -= amount;  // FIXED: was "damage"
+            Debug.Log("Player took " + amount + " damage.");
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            UpdateHealthBar();
+            lastDamageTime = Time.time;
+        }
+
         if (currentHealth <= 0f)
         {
             Die();

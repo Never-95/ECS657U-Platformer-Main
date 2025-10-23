@@ -98,10 +98,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        isGrounded = true;
-    }
 
     public void ActivateSpeedBoost(float multiplier, float duration)
     {
