@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour
             // Air movement - use velocity for horizontal, preserve vertical
             Vector3 airMove = move * moveSpeed * Time.fixedDeltaTime;
             rb.velocity = new Vector3(airMove.x / Time.fixedDeltaTime, rb.velocity.y, airMove.z / Time.fixedDeltaTime);
+            if (move == Vector3.zero)
+            {
+                rb.AddForce(Vector3.down * 9.81f * Time.fixedDeltaTime, ForceMode.Acceleration);
+            }
         }
         
         if (isGrounded && jumping)
@@ -97,7 +101,20 @@ public class PlayerController : MonoBehaviour
             transform.position = checkpointpos;
         }
     }
-
+    void OnCollisionStay(Collision collision)
+    {
+        // Check if we're colliding with walls/sides
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (Vector3.Dot(contact.normal, Vector3.up) < 0.5f) // Not ground
+            {
+                // Apply slight repulsion force or adjust position
+                Vector3 adjustment = contact.normal * 0.1f;
+                rb.position += adjustment;
+                break;
+            }
+        }
+    }
 
     public void ActivateSpeedBoost(float multiplier, float duration)
     {
