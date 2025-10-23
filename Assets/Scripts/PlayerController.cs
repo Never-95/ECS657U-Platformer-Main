@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +11,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = true;
     public bool jumping = false;
 
-    
+    //used for accelerating and slowing down while on ice
+    private Vector2 velocity = new Vector2(0f, 0f);
 
     private Vector2 moveInput;
     private Rigidbody rb;
@@ -27,9 +30,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Other Settings")]
     //Contains current checkpoint respawn position
-    private Vector3 checkpointpos = new Vector3(0, 0, 0);
+    private Vector3 checkpointpos = new Vector3(0f, 0f, 0f);
 
     public bool icy = false;
+    public float iceaccel = 0.02f;
+    public float icedecel = 0.02f;
 
     void Start()
     {
@@ -41,12 +46,66 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector3 move;
         if (icy == true)
         {
-            //to implement
+            //add inputs to velocity vectors to act as acceleration/deceleration if trying to move in that direction
+            if (moveInput.x != 0f)
+            {
+                velocity.x += (moveInput.x * iceaccel);
+                //cap velocity vectors if neccessary
+                if (Math.Abs(velocity.x) > 1f)
+                {
+                    velocity.x -= (moveInput.x * iceaccel);
+                }
+            }
+            //applies deceleration from not moving in that axis
+            else if(velocity.x > icedecel)
+            {
+                Debug.Log("decel");
+                velocity.x -= icedecel;
+            }
+            else if(velocity.x< (-icedecel))
+            {
+                velocity.x += icedecel;
+            }
+            else
+            {
+                velocity.x = 0f;
+            }
+
+            //same for y axis
+            if (moveInput.y != 0f)
+            {
+                velocity.y += (moveInput.y * iceaccel);
+                if (Math.Abs(velocity.y) > 1f)
+                {
+                    velocity.y -= (moveInput.y * iceaccel);
+                }
+
+            }
+            else if (velocity.y > icedecel)
+            {
+                velocity.y -= icedecel;
+            }
+            else if (velocity.y < (-icedecel))
+            {
+                velocity.y += icedecel;
+            }
+            else
+            {
+                velocity.y = 0f;
+            }
+
+            //applies the velocity onto move vector
+            move = transform.right * velocity.x + transform.forward * velocity.y;
+        }
+        else 
+        {
+            velocity = moveInput;
+            move = transform.right * moveInput.x + transform.forward * moveInput.y;
         }
 
-        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         if (isGrounded)
         {
@@ -134,7 +193,6 @@ public class PlayerController : MonoBehaviour
 
     public void CheckCurrentCheckpoint(Vector3 newcheckpointpos)
     {
-        Debug.Log("check current checkpoint");
         if (newcheckpointpos != checkpointpos)
         {
             checkpointpos = newcheckpointpos;
@@ -143,7 +201,6 @@ public class PlayerController : MonoBehaviour
 
     public void Death()
     {
-
         //respawns player
         transform.position = checkpointpos;
     }

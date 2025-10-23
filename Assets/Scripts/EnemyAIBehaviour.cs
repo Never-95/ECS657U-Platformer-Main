@@ -28,7 +28,7 @@ public class EnemyAIBehaviour : MonoBehaviour
     {
         if (!isChasing)
         {
-            Debug.Log("Patrolling");
+            //Debug.Log("Patrolling");
             OnPatrol();
         }
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);

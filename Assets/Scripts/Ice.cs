@@ -21,7 +21,6 @@ public class Ice : MonoBehaviour
         //checks if player object is touching the ice and applies the icy effect
         if (collision.gameObject.name == "Player")
         {
-            Debug.Log("Ice applied");
             collision.gameObject.GetComponent<PlayerController>().icy = true;
         }
 
@@ -32,7 +31,6 @@ public class Ice : MonoBehaviour
         //removes ice effect off player when they stop touching it
         if (collision.gameObject.name == "Player")
         {
-            Debug.Log("Ice removed");
             collision.gameObject.GetComponent<PlayerController>().icy = false;
         }
     }
