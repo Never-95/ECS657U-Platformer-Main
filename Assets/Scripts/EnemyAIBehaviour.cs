@@ -7,117 +7,121 @@ public class EnemyAIBehaviour : MonoBehaviour
 {
     public GameObject player;
     public NavMeshAgent agent;
+    
     private bool isChasing = false;
     private bool isAttacking = false;
+    
     public float chaseRange = 10f;
     private float attackRange = 2f;
-
-    //Patroling
-    public float walkpointRange;
-    private Vector3 walkPoint;
-    private bool walkPointSet;
-
+    
+    // Store starting position to return to
+    private Vector3 startPosition;
+    
     public float lastAttackTime;
-    public float attackTimer = 2f;
+    public float attackCooldown = 2f;
+
+    public float normalSpeed = 3.5f;
+    public float retreatSpeed = 6f;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        
+        // Store the enemy's starting position
+        startPosition = transform.position;
+        agent.speed = normalSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Check if player is invisible
         PlayerController playerController = player.GetComponent<PlayerController>();
         if (playerController != null && playerController.IsInvisible())
         {
-            if (!walkPointSet || !isChasing)
-            {
-                OnPatrol();
-            }
+            // Return to start position when player is invisible
+            ReturnToStart();
             isChasing = false;
             isAttacking = false;
-            return; 
+            return;
         }
-        if (!isChasing)
-        {
-            //Debug.Log("Patrolling");
-            OnPatrol();
-        }
+
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+        // Chase logic
         if (distanceToPlayer <= chaseRange && distanceToPlayer > attackRange)
         {
             isChasing = true;
             isAttacking = false;
-            //Debug.Log("Chasing");
+            agent.speed = normalSpeed;
             OnChase();
         }
+        // Attack logic
         else if (distanceToPlayer <= attackRange)
         {
             isChasing = false;
             isAttacking = true;
-            //Debug.Log("Attacking");
             OnAttack();
         }
+        // Return to start if player is too far
         else
         {
             isChasing = false;
             isAttacking = false;
+            ReturnToStart();
         }
-
     }
-    
-    void OnPatrol()
-    {
-        if (!walkPointSet) { SearchWalkPoint(); }
 
-        if (walkPointSet)
-        {
-            agent.SetDestination(walkPoint);
-            if (Vector3.Distance(transform.position, walkPoint) < 1f)
-                walkPointSet = false;
-        }
-        void SearchWalkPoint()
-        {
-            //Calculate random point in range
-            float randomZ = Random.Range(-walkpointRange, walkpointRange);
-            float randomX = Random.Range(-walkpointRange, walkpointRange);
-
-            walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-            if (Physics.Raycast(walkPoint, -transform.up, 2f, LayerMask.GetMask("Ground")))
-                walkPointSet = true;
-        }
-        // Logic for patrolling behavior
-    }
     void OnChase()
     {
-
+        agent.isStopped = false;
+        agent.speed = normalSpeed;
         agent.SetDestination(player.transform.position);
-        if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
-        {
-            isChasing = false;
-            isAttacking = true;
-        }
-        else if (Vector3.Distance(transform.position, player.transform.position) > chaseRange)
-        {
-            isChasing = false;
-            isAttacking = false;
-        }
-
-        // Logic for chasing the player
     }
+
     void OnAttack()
     {
-        agent.SetDestination(transform.position);
+        // Stop moving when attacking
+        agent.isStopped = true;
+        
+        // Look at player
+        Vector3 lookDirection = (player.transform.position - transform.position).normalized;
+        lookDirection.y = 0; // Keep on same vertical plane
+        if (lookDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(lookDirection);
+        }
+
+        // Deal damage with cooldown
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        if (playerHealth != null && Time.time >= lastAttackTime + attackTimer)
+        if (playerHealth != null && Time.time >= lastAttackTime + attackCooldown)
         {
             lastAttackTime = Time.time;
             playerHealth.TakeDamage(20f);
+            
+            // Knockback
+            Rigidbody playerRb = player.GetComponent<Rigidbody>();
+            if (playerRb != null)
+            {
+                Vector3 knockbackDirection = (player.transform.position - transform.position).normalized;
+                playerRb.AddForce(knockbackDirection * 30f, ForceMode.Impulse);
+            }
         }
-        //player.GetComponent<PlayerHealth>().TakeDamage(1);
-        player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 5f, ForceMode.Impulse);
     }
 
+    void ReturnToStart()
+    {
+        agent.isStopped = false;
+        
+        // Only move back if not already at start position
+        if (Vector3.Distance(transform.position, startPosition) > 0.5f)
+        {
+            agent.SetDestination(startPosition);
+        }
+        else
+        {
+            agent.isStopped = true; // Stop when reached start position
+            agent.speed = normalSpeed;
+        }
+    }
 }
