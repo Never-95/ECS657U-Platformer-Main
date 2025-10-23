@@ -20,9 +20,9 @@ public class PlayerController : MonoBehaviour
     [Header("Perk Settings")]
     private bool canDoubleJump = false;
     private bool hasDoubleJumped = false;
-
     private bool speedBoostActive = false;
     private float speedBoostTimer = 0f;
+    private bool isInvisible = false;
 
     [Header("Jump Settings")]
     public float jumpForce = 5f;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        rb.useGravity = true;  // Make sure this is on
+        rb.useGravity = true;
         moveSpeed = baseMoveSpeed;
     }
 
@@ -117,6 +117,10 @@ public class PlayerController : MonoBehaviour
             // Air movement - use velocity for horizontal, preserve vertical
             Vector3 airMove = move * moveSpeed * Time.fixedDeltaTime;
             rb.velocity = new Vector3(airMove.x / Time.fixedDeltaTime, rb.velocity.y, airMove.z / Time.fixedDeltaTime);
+            if (move == Vector3.zero)
+            {
+                rb.AddForce(Vector3.down * 9.81f * Time.fixedDeltaTime, ForceMode.Acceleration);
+            }
         }
         
         if (isGrounded && jumping)
@@ -166,10 +170,19 @@ public class PlayerController : MonoBehaviour
             transform.position = checkpointpos;
         }
     }
-
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
-        isGrounded = true;
+        // Check if we're colliding with walls/sides
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (Vector3.Dot(contact.normal, Vector3.up) < 0.5f) // Not ground
+            {
+                // Apply slight repulsion force or adjust position
+                Vector3 adjustment = contact.normal * 0.1f;
+                rb.position += adjustment;
+                break;
+            }
+        }
     }
 
     public void ActivateSpeedBoost(float multiplier, float duration)
@@ -190,6 +203,23 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         canDoubleJump = false;
     }
+
+    public void ActivateInvisibility(float duration)
+    {
+        StartCoroutine(InvisibilityRoutine(duration));
+    }
+
+    private System.Collections.IEnumerator InvisibilityRoutine(float duration)
+    {
+        isInvisible = true;
+        yield return new WaitForSeconds(duration);
+        isInvisible = false;
+    }
+
+    public bool IsInvisible()
+    {
+        return isInvisible;
+    }  // ← ADDED THIS CLOSING BRACE
 
     public void CheckCurrentCheckpoint(Vector3 newcheckpointpos)
     {
