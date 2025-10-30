@@ -16,9 +16,9 @@ public class EnemyAIBehaviour : MonoBehaviour
     
     // Store starting position to return to
     private Vector3 startPosition;
-    
-    public float lastAttackTime;
-    public float attackCooldown = 2f;
+
+    private float attackCooldown = 0.5f;
+    private float lastAttackTime = 0f;
 
     public float normalSpeed = 3.5f;
     public float retreatSpeed = 6f;

@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
     public float maxHealth = 100f;
-    private float currentHealth;
+    public float currentHealth;
     public Slider healthBarSlider;
     
     [Header("Oxygen Settings")]
@@ -58,7 +58,7 @@ public class PlayerHealth : MonoBehaviour
         
         if (oxygenDepleted)
         {
-            TakeDamage(oxygenDamageRate * Time.deltaTime);  // FIXED: was "oxygenDamageAmount"
+            TakeDamage(damageAmount);  // FIXED: was "oxygenDamageAmount"
         }
     }
     
