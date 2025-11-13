@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 39063927ee39546fcb7eb67d8c073dee
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/environment_objects/cave.prefab
+  uploadId: 560405

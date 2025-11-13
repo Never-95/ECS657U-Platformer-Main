@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5325ba2cd50b7429e825c7ce1d3ed28e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/fishes/puffer_big.prefab
+  uploadId: 560405

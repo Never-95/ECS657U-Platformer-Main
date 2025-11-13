@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 298c9c0e6c29a47708b298a9ae9af766
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/splitted_objects/box_splitted.prefab
+  uploadId: 560405

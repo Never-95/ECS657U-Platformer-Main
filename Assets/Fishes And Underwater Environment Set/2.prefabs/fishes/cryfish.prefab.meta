@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a3d79a52019ed4e1697707312454dde7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/fishes/cryfish.prefab
+  uploadId: 560405

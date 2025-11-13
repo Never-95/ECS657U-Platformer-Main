@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e7fb54964e6304699b2529b065461ec7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/environment_objects/layers_of_ground.prefab
+  uploadId: 560405

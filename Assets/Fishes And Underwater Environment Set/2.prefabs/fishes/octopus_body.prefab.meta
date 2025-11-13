@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 625ecbc00d4514b38ae82a9deeb5651d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/fishes/octopus_body.prefab
+  uploadId: 560405
