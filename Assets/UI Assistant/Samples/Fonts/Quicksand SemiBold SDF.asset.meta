@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1e4d1383998844f47a62f0999c223b08
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Fonts/Quicksand SemiBold SDF.asset
+  uploadId: 760970

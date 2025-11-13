@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 626c69dbf043e6e4e9f67fdf79445444
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Scenes/CreditsBuilderSample.unity
+  uploadId: 760970

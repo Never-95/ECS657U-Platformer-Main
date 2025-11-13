@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9f2f5c07a7d42204581c07f7e311eb08
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Prefabs/SampleOptionCycler.prefab
+  uploadId: 760970

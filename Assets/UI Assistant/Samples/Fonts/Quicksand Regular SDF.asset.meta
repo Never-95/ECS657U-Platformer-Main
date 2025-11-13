@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a72e24a6ac6ed4c4cb331646c024679b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Fonts/Quicksand Regular SDF.asset
+  uploadId: 760970

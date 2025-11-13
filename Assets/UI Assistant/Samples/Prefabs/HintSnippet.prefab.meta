@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7bbfc00509c6210448addd9045f494b9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Prefabs/HintSnippet.prefab
+  uploadId: 760970

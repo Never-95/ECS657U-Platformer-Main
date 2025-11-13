@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a30448b3d6d590d49b3519083a7183fd
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Scenes/TextSample.unity
+  uploadId: 760970

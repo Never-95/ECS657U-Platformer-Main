@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: db438c3eaa170dd40928e57e1fc656a4
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Scenes/ScalingSample.unity
+  uploadId: 760970
