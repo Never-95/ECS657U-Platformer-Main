@@ -22,13 +22,13 @@ SpaceBar : Jump
 
    `git clone https://github.com/Never-95/ECS657U-Platformer-Main.git`
    
-2.Open Unity Hub and select the cloned project folder
+2. Open Unity Hub and select the cloned project folder
 
-  Make sure the Unity version matches the version of the project (2023.1)
+   Make sure the Unity version matches the version of the project (2023.1)
 
 # Testing the Project
 
-1.Open the Scenes folder and load the main scene.
+1. Open the Scenes folder and load the main scene.
 
-2.Press the Play button in Unity to test gameplay features.
+2. Press the Play button in Unity to test gameplay features.
 
