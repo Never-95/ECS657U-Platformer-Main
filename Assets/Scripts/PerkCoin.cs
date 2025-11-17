@@ -70,7 +70,7 @@ public class PerkCoin : MonoBehaviour
     {
         active = false;
         Debug.Log("deactivated!");
-        this.gameObject.setActive(false);
+        this.gameObject.SetActive(false);
         yield return new WaitForSeconds(effectDuration);
         active = true;
         Debug.Log("activated!");
