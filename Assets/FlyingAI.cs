@@ -13,9 +13,14 @@ public class scr : MonoBehaviour
     private Vector3 randomPatrolTarget;
     public float patrolRadius = 5f;
     
+    public float liftHeight = 10f;
+    public float liftSpeed = 2f;
+    private float currentLiftHeight = 0f;
+    private float dropDelay = 2f;
     private bool ispatrolling = true;
     private bool ischasing = false;
     private bool isattacking = false;
+    private bool isattacked = false;
 
     void Start()
     {
@@ -97,6 +102,26 @@ public class scr : MonoBehaviour
     }
     private void OnAttack()
     {
-        
+        if (!isattacked)
+        {
+            player.GetComponent<PlayerHealth>().TakeDamage(20);
+            isattacked = true;
+        }
+        player.SetParent(transform);
+        Vector3 liftposition = new Vector3(transform.position.x, transform.position.y + liftHeight, transform.position.z);
+        while (currentLiftHeight < liftHeight)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, liftposition, liftSpeed * Time.deltaTime);
+            currentLiftHeight += liftSpeed * Time.deltaTime;
+        }
+        StartCoroutine(DropPlayerAfterDelay());
+
+    }
+    private IEnumerator DropPlayerAfterDelay()
+    {
+        yield return new WaitForSeconds(dropDelay);
+        player.SetParent(null);
+        isattacked = false;
+        currentLiftHeight = 0f;
     }
 }
