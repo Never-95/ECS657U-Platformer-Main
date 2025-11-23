@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -407,12 +407,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crumbleDelay: 1
-  fallSpeed: 5
   respawnDelay: 3
   respawnPlatform: 1
-  shakeBeforeFall: 1
+  shakeBeforeCrumble: 1
   shakeIntensity: 0.1
---- !u!1 &198483532
+  fadeOut: 1
+  warningColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!1 &198483532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1932634180995506383, guid: 4e4f73f6189344b47b3a05d674e0cb4f, type: 3}
   m_PrefabInstance: {fileID: 6609878120437220135}
@@ -422,22 +423,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5490541088981622813, guid: 4e4f73f6189344b47b3a05d674e0cb4f, type: 3}
   m_PrefabInstance: {fileID: 6609878120437220135}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198483532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f693056e4a9aba4499c9e999c8a987d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  healthBarSlider: {fileID: 1200270147}
-  maxOxygen: 60
-  currentOxygen: 0
-  oxygenDepletionRate: 5
-  oxygenDamageRate: 10
-  oxygenBarSlider: {fileID: 1117909866}
-  damageAmount: 20
-  damageCooldown: 0.5
 --- !u!1 &204369525
 GameObject:
   m_ObjectHideFlags: 0
@@ -3313,6 +3298,7 @@ Transform:
   - {fileID: 1257894803}
   - {fileID: 2037465105}
   - {fileID: 70998950}
+  - {fileID: 1891419604731026955}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1470206901
@@ -4216,12 +4202,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257767323100742833}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.21, y: 28.84, z: -0.83}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.0896225, y: 18.158058, z: 23.898935}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1470206900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2770691899977869732
 PrefabInstance:
@@ -4448,6 +4434,5 @@ SceneRoots:
   - {fileID: 1557152856}
   - {fileID: 617086635}
   - {fileID: 1470206900}
-  - {fileID: 1891419604731026955}
   - {fileID: 1169004131}
   - {fileID: 988195171}
