@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7b539fb9d6a7f4346ba7ca5d509a0bd2
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Scenes/OptionsBuilderSample.unity
+  uploadId: 760970

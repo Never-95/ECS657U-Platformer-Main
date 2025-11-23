@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0ab7bcd6d7cbc1e4eb43d40dea0a6cfe
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Data/ColorSettings.asset
+  uploadId: 760970

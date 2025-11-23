@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 203b004c6e5c64c0e9eaf43f0e81d5a8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/fishes/shark.prefab
+  uploadId: 560405

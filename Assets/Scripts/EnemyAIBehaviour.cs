@@ -51,6 +51,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         // Chase logic
         if (distanceToPlayer <= chaseRange && distanceToPlayer > attackRange)
         {
+            Debug.Log("Chasing the player");
             isChasing = true;
             isAttacking = false;
             agent.speed = normalSpeed;
@@ -59,6 +60,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         // Attack logic
         else if (distanceToPlayer <= attackRange)
         {
+            Debug.Log("Attacking the player");
             isChasing = false;
             isAttacking = true;
             OnAttack();
@@ -66,6 +68,7 @@ public class EnemyAIBehaviour : MonoBehaviour
         // Return to start if player is too far
         else
         {
+            Debug.Log("Returning to start position");
             isChasing = false;
             isAttacking = false;
             ReturnToStart();

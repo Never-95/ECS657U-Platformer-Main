@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7fc67ef750831184d9fb4daa8b58243b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Samples/Prefabs/SampleDropdown.prefab
+  uploadId: 760970

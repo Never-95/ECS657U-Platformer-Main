@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e1b501d3bec244e0681de4f8b8458e8b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/splitted_objects/gate_splitted.prefab
+  uploadId: 560405

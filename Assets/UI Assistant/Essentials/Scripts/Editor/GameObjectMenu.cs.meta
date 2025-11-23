@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 986f35cdb5cde9b4cb7b29a5fb74c099
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 275638
+  packageName: UI Assistant
+  packageVersion: 2.4.0
+  assetPath: Assets/UI Assistant/Essentials/Scripts/Editor/GameObjectMenu.cs
+  uploadId: 760970

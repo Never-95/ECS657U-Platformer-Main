@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fb1db678cb51d4b81a52459ea957c397
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123678
+  packageName: Fishes And Underwater Environment Set
+  packageVersion: 1.0
+  assetPath: Assets/Fishes And Underwater Environment Set/2.prefabs/environment_objects/circle.prefab
+  uploadId: 560405
