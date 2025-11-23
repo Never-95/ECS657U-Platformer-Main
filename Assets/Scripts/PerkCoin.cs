@@ -21,6 +21,7 @@ public class PerkCoin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("entered coin");
         if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
@@ -57,10 +58,15 @@ public class PerkCoin : MonoBehaviour
                         break;
                 }
 
-                Destroy(gameObject, 0.1f);
+                //Call CoinController script within parent object to temporarily deactivate coin
+                transform.parent.gameObject.GetComponent<CoinController>().DeactivateCoin(this.gameObject, effectDuration);
+
+
+                //Destroy(gameObject, 0.1f);
             }
         }
     }
+
 
     private System.Collections.IEnumerator EndLevelProcess()
     {
