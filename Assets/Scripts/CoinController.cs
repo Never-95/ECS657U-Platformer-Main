@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void DeactivateCoin(GameObject coinObject, float effectDuration)
     {
-        
+        Debug.Log(coinObject);
+        StartCoroutine(Deactivate(coinObject, effectDuration));
     }
 
-    // Update is called once per frame
-    void Update()
+    private System.Collections.IEnumerator Deactivate(GameObject coinObject, float effectDuration)
     {
-        
+        Debug.Log("deactivated!");
+        coinObject.SetActive(false);
+        yield return new WaitForSeconds(effectDuration);
+        Debug.Log("activated!");
+        coinObject.SetActive(true);
     }
 }

@@ -19,12 +19,10 @@ public class PerkCoin : MonoBehaviour
     [Header ("Health/Oxygen Restore Settings")]
     public float restoreAmount = 30f;
 
-    private bool active = true;
-
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("entered coin");
-        if (other.CompareTag("Player") && (active==true))
+        if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
 
@@ -59,23 +57,17 @@ public class PerkCoin : MonoBehaviour
                         }
                         break;
                 }
-                StartCoroutine(DeactivateCoin());
+
+                //Call CoinController script within parent object to temporarily deactivate coin
+                transform.parent.gameObject.GetComponent<CoinController>().DeactivateCoin(this.gameObject, effectDuration);
+
 
                 //Destroy(gameObject, 0.1f);
             }
         }
     }
 
-    private System.Collections.IEnumerator DeactivateCoin()
-    {
-        active = false;
-        Debug.Log("deactivated!");
-        this.gameObject.SetActive(false);
-        yield return new WaitForSeconds(effectDuration);
-        active = true;
-        Debug.Log("activated!");
-        this.gameObject.SetActive(true);
-    }
+
     private System.Collections.IEnumerator EndLevelProcess()
     {
         Debug.Log("Level Complete!");
