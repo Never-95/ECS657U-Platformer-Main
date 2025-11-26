@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedAI : MonoBehaviour
@@ -50,6 +51,7 @@ public class RangedAI : MonoBehaviour
         {
             float projectileSpeed = 15f;
             rb.velocity = direction * projectileSpeed;
+            
         }
     }
 
