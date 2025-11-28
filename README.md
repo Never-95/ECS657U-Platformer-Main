@@ -2,9 +2,9 @@
 Main repository for Platformer game where source code is located
 
 # How to play 
-Access the WebGL build using the link below:
+Access the WebGL builds using the links in the builds repo at:
 
-https://never-95.github.io/ECS657U-Platformer-Builds/prototype%20v1.1/
+https://github.com/Never-95/ECS657U-Platformer-Builds
 
 # Controls
 W / ↑ : Move Forwards
