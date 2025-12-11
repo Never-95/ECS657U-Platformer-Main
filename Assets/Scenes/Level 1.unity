@@ -272,6 +272,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crab
       objectReference: {fileID: 0}
+    - target: {fileID: 3196815699392923699, guid: 2057ce7cb795d884ab8febdb507b2790, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196815699392923699, guid: 2057ce7cb795d884ab8febdb507b2790, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196815699392923699, guid: 2057ce7cb795d884ab8febdb507b2790, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4541736658605482822, guid: 2057ce7cb795d884ab8febdb507b2790, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.864541
