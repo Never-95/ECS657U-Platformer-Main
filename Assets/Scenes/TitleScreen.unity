@@ -120,28 +120,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &18899966 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7947185782940448060, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
-  m_PrefabInstance: {fileID: 508303325}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &18899967 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
   m_PrefabInstance: {fileID: 508303325}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &18899973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18899966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca1ec2565deca334a8260e0871cb6a04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &508303325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,15 +135,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7947185782940448048, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
       propertyPath: m_Color.b
-      value: 0.19428416
+      value: 0.37254906
       objectReference: {fileID: 0}
     - target: {fileID: 7947185782940448048, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
       propertyPath: m_Color.g
-      value: 0.9056604
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7947185782940448048, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
       propertyPath: m_Color.r
-      value: 0.046991818
+      value: 0.49270946
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1622670923}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPlayButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayButtonBehaviour, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7947185782940448053, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
       propertyPath: ForceNormal
@@ -168,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7947185782940448060, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
       propertyPath: m_Name
-      value: SampleButton
+      value: PlayButton
       objectReference: {fileID: 0}
     - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
       propertyPath: m_Pivot.x
@@ -261,10 +272,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7947185782940448060, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 18899973}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
 --- !u!224 &548862614 stripped
 RectTransform:
@@ -404,6 +412,7 @@ GameObject:
   - component: {fileID: 1622670921}
   - component: {fileID: 1622670920}
   - component: {fileID: 1622670919}
+  - component: {fileID: 1622670923}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -496,6 +505,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1622670923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622670918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1ec2565deca334a8260e0871cb6a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1842761618
 GameObject:
   m_ObjectHideFlags: 0
