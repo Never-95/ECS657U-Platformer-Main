@@ -303,6 +303,34 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1622670924}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnControlsButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsButtonBehaviour, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7947185782940448060, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
       propertyPath: m_Name
       value: ControlsButton
@@ -413,6 +441,7 @@ GameObject:
   - component: {fileID: 1622670920}
   - component: {fileID: 1622670919}
   - component: {fileID: 1622670923}
+  - component: {fileID: 1622670924}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -515,6 +544,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca1ec2565deca334a8260e0871cb6a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1622670924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622670918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03d1c22ade70c74bb6c1679fe3585b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1842761618
