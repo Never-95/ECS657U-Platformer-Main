@@ -11,5 +11,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 8e2f3d0053830c744850727b0cc070af
+  - enabled: 1
+    path: Assets/Scenes/SettingScreen.unity
+    guid: a6860923fb9f18a47a6ec95f2bb25bd3
+  - enabled: 1
+    path: Assets/Scenes/TitleScreen.unity
+    guid: 30fe807b4748120438f33a0b6f186eae
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
