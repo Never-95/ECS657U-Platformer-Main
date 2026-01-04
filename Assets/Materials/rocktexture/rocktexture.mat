@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: rocktexture
-  m_Shader: {fileID: -6465566751694194690, guid: 8657c26ca0ee3d140aa8a8d059bf3cd1, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b4278cee0937a044e9ba2c33d579d072, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -67,6 +67,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: c5e82ed93bb548f499a7512a5a310f23, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Triplanar_e7fe5b1b558b41f383e09c1cd9040f26_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Alpha: 1
@@ -81,6 +85,7 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
+    - _Object_Space: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.0603
     - _Smoothness: 0
