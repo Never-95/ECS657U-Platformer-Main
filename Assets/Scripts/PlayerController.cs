@@ -36,12 +36,16 @@ public class PlayerController : MonoBehaviour
     public float iceaccel = 0.02f;
     public float icedecel = 0.02f;
 
+    //animator
+    private Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         rb.useGravity = true;
         moveSpeed = baseMoveSpeed;
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -153,6 +157,8 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        animator.SetFloat("ForwardMovement", moveInput.y);
+        animator.SetFloat("StrafingMovement", moveInput.x);
     }
 
     void OnJump(InputValue inputValue)
