@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour
         }
 
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
+        animator.SetBool("isGrounded", isGrounded);
         if (isGrounded)
         {
             // Ground movement - use MovePosition
@@ -132,6 +133,8 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumping = false;
             isGrounded = false;
+            animator.SetBool("Jumping", false);
+            animator.SetBool("isGrounded", false);
             hasDoubleJumped = false;
         }
         else if (canDoubleJump && jumping && !hasDoubleJumped)
@@ -141,6 +144,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
             hasDoubleJumped = true;
             jumping = false;
+            animator.SetBool("Jumping", false);
         }
         
         if (speedBoostActive)
@@ -166,6 +170,7 @@ public class PlayerController : MonoBehaviour
         if (inputValue.isPressed)
         {
             jumping = true;
+            animator.SetBool("Jumping", true);
         }
     }
 
@@ -225,7 +230,7 @@ public class PlayerController : MonoBehaviour
     public bool IsInvisible()
     {
         return isInvisible;
-    }  // ← ADDED THIS CLOSING BRACE
+    }
 
     public void CheckCurrentCheckpoint(Vector3 newcheckpointpos)
     {
