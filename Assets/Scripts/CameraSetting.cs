@@ -9,14 +9,13 @@ public class CameraSetting : MonoBehaviour
     private float xRotation = 0f; // Vertical rotation (camera)
 
     public Transform target; // The player body or object the camera follows
+    public Transform player;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
-        // Place the camera at the target's position initially
-        transform.position = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
+        transform.position = target.position;
     }
 
     void Update()
@@ -25,13 +24,12 @@ public class CameraSetting : MonoBehaviour
         float mouseX = UnityEngine.Input.GetAxis("Mouse X") * Xaxis;
         float mouseY = UnityEngine.Input.GetAxis("Mouse Y") * Yaxis;
         yRotation += mouseX;
-        target.rotation = Quaternion.Euler(0f, yRotation, 0f); // Rotate the body left/right
+        player.rotation = Quaternion.Euler(0f, yRotation, 0f); // Rotate the body left/right
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limit vertical look
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
 
         // --- Keep camera on player position ---
-        transform.position = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
     }
 }
  
