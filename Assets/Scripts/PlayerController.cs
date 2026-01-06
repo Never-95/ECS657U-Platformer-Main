@@ -46,9 +46,25 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //sets acceleration to ice or normal based on icy status
-        float accel = (icy ? iceAccel : baseAcceleration) * Time.fixedDeltaTime;
+        //sets acceleration and movespeed to ice or normal based on icy status
+        float accel = baseAcceleration * Time.fixedDeltaTime;
+        if (icy){
+            accel = iceAccel * Time.fixedDeltaTime;
+            moveSpeed = baseMoveSpeed * 2f;
+        }
+        else{
+            moveSpeed = baseMoveSpeed;
+        }
 
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
+
+        //make acceleration less while in air (to give less control)
+        if (!isGrounded){
+            accel = accel / 2f;
+        }
+
+        /* --- Old Code ---
+        
         //checks if moveinput is given and adds the acceleration to velocity according to it
         if (moveInput != Vector2.zero){
             velocity += moveInput.normalized * accel;
@@ -68,6 +84,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded){
             // Ground movement - use MovePosition
             rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+
         }
         else{
             // Air movement - use velocity for horizontal, preserve vertical
@@ -78,9 +95,44 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(Vector3.down * 9.81f * Time.fixedDeltaTime, ForceMode.Acceleration);
             }
         }
-        
+        */
+
+        //desired horizontal velocity
+        Vector3 inputDir = transform.right * moveInput.x + transform.forward * moveInput.y;
+        inputDir.y = 0f;
+
+        if (inputDir.sqrMagnitude > 1f)
+            inputDir.Normalize();
+
+        Vector3 targetVelocity = inputDir * moveSpeed;
+
+        //current velocityy
+        Vector3 currentVelocity = rb.velocity;
+
+        //separate horizontal & vertical
+        Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
+
+        //smooth acceleration toward target
+        horizontalVelocity = Vector3.MoveTowards(
+            horizontalVelocity,
+            targetVelocity,
+            accel
+        );
+
+        //apply final velocity
+        rb.velocity = new Vector3(
+            horizontalVelocity.x,
+            currentVelocity.y,
+            horizontalVelocity.z
+        );
+
+
+
         if (isGrounded && jumping){
+            //nullify any existing vertical velocity before adding jump force
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
             jumping = false;
             isGrounded = false;
             hasDoubleJumped = false;
@@ -108,9 +160,9 @@ public class PlayerController : MonoBehaviour
         moveInput = value.Get<Vector2>();
     }
 
-    void OnJump(InputValue inputValue)
+    void OnJump(InputValue value)
     {
-        if (inputValue.isPressed)
+        if (value.isPressed)
         {
             jumping = true;
         }
