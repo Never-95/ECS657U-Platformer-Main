@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
+    //default movement speed that is adjustable
     public float baseMoveSpeed = 5f;
+    //current movement speed that can be modified by coins etc. (e.g. speed boost)
     private float moveSpeed;
     public bool isGrounded = true;
     public bool jumping = false;
@@ -48,13 +50,18 @@ public class PlayerController : MonoBehaviour
     {
         //sets acceleration and movespeed to ice or normal based on icy status
         float accel = baseAcceleration * Time.fixedDeltaTime;
+        //move speed used in calculations based off moveSpeed (which can be increased)
+        float currentMoveSpeed;
+
+        //change acceleration and movespeed if on ice
         if (icy){
             accel = iceAccel * Time.fixedDeltaTime;
-            moveSpeed = baseMoveSpeed * 2f;
+            currentMoveSpeed = moveSpeed * 2f;
         }
         else{
-            moveSpeed = baseMoveSpeed;
+            currentMoveSpeed = moveSpeed;
         }
+
 
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
 
@@ -63,63 +70,28 @@ public class PlayerController : MonoBehaviour
             accel = accel / 2f;
         }
 
-        /* --- Old Code ---
-        
-        //checks if moveinput is given and adds the acceleration to velocity according to it
-        if (moveInput != Vector2.zero){
-            velocity += moveInput.normalized * accel;
-        }
-        //if no input is given, decelerates the player
-        else{
-            velocity = Vector2.MoveTowards(velocity, Vector2.zero, accel);
-        }
-
-        //clamps the velocity's magnitude (speed) to 1
-        velocity = Vector2.ClampMagnitude(velocity, 1f);
-
-        //applies the velocity onto move vector
-        Vector3 move = transform.right * velocity.x + transform.forward * velocity.y;
-
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
-        if (isGrounded){
-            // Ground movement - use MovePosition
-            rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
-
-        }
-        else{
-            // Air movement - use velocity for horizontal, preserve vertical
-            Vector3 airMove = move * moveSpeed * Time.fixedDeltaTime;
-            rb.velocity = new Vector3(airMove.x / Time.fixedDeltaTime, rb.velocity.y, airMove.z / Time.fixedDeltaTime);
-            if (move == Vector3.zero)
-            {
-                rb.AddForce(Vector3.down * 9.81f * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
-        }
-        */
-
-        //desired horizontal velocity
+        //calculate input direction vector for xz plane (horizontal movement)
         Vector3 inputDir = transform.right * moveInput.x + transform.forward * moveInput.y;
         inputDir.y = 0f;
 
+        //calculate if magnitude is greater than 1 (which will work for any direction it could be) and normalize (reduce to magnitude of 1)
         if (inputDir.sqrMagnitude > 1f)
             inputDir.Normalize();
 
-        Vector3 targetVelocity = inputDir * moveSpeed;
-
-        //current velocityy
+        Vector3 targetVelocity = inputDir * currentMoveSpeed;
         Vector3 currentVelocity = rb.velocity;
 
-        //separate horizontal & vertical
+        //take current horizontal velocity (xz plane) only to use for horizontal movement calculation
         Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
 
-        //smooth acceleration toward target
+        //smooth acceleration from current horizontal velocity to target velocity
         horizontalVelocity = Vector3.MoveTowards(
             horizontalVelocity,
             targetVelocity,
             accel
         );
 
-        //apply final velocity
+        //apply final velocity now including unchanged vertical velocity (y component)
         rb.velocity = new Vector3(
             horizontalVelocity.x,
             currentVelocity.y,
@@ -144,11 +116,13 @@ public class PlayerController : MonoBehaviour
             hasDoubleJumped = true;
             jumping = false;
         }
-        
+
         if (speedBoostActive){
+            //decrease speed boost timer
             speedBoostTimer -= Time.fixedDeltaTime;
-            if (speedBoostTimer <= 0f)
-            {
+
+            //if timer runs out, reset move speed back to base value and deactivate speed boost
+            if (speedBoostTimer <= 0f){
                 moveSpeed = baseMoveSpeed;
                 speedBoostActive = false;
             }
