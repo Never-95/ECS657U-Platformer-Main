@@ -17,6 +17,8 @@ D / → : Move Right
 
 SpaceBar : Jump
 
+C : Respawn at last checkpoint
+
 # Access game in Unity
 1. Clone project into your local machine
 
