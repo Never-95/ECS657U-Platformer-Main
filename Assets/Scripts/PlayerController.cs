@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     public bool isGrounded = true;
     public bool jumping = false;
-    public float baseAcceleration = 5f;
+    public float baseAcceleration = 30f;
 
-    //used for accelerating and slowing down
+    //for debugging purposes, doesn't do any function
     public Vector2 velocity = new Vector2(0f, 0f);
 
     private Vector2 moveInput;
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 checkpointpos = new Vector3(0f, 0f, 0f);
 
     public bool icy = false;
-    public float iceAccel = 0.5f;
+    public float iceAccel = 5f;
 
     //animator
     private Animator animator;
@@ -58,30 +58,28 @@ public class PlayerController : MonoBehaviour
         float currentMoveSpeed;
 
         //change acceleration and movespeed if on ice
-        if (icy){
+        if (icy)
+        {
             accel = iceAccel * Time.fixedDeltaTime;
             currentMoveSpeed = moveSpeed * 2f;
         }
-        else{
+        else
+        {
             currentMoveSpeed = moveSpeed;
         }
 
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f);
         animator.SetBool("isGrounded", isGrounded);
 
         //make acceleration less while in air (to give less control)
-        if (!isGrounded){
-            accel = accel / 2f;
+        if (!isGrounded)
+        {
+            accel = accel / 4f;
         }
 
         //calculate input direction vector for xz plane (horizontal movement)
         Vector3 inputDir = transform.right * moveInput.x + transform.forward * moveInput.y;
         inputDir.y = 0f;
-
-        /*/calculate if magnitude is greater than 1 (which will work for any direction it could be) and normalize (reduce to magnitude of 1)
-        if (inputDir.sqrMagnitude > 1f)
-            inputDir.Normalize();
-        */
 
         Vector3 targetVelocity = inputDir * currentMoveSpeed;
         Vector3 currentVelocity = rb.velocity;
@@ -89,14 +87,43 @@ public class PlayerController : MonoBehaviour
         //take current horizontal velocity (xz plane) only to use for horizontal movement calculation
         Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
 
-        //smooth acceleration from current horizontal velocity to target velocity
-        horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity, accel);
+
+        if (isGrounded)
+        {
+            //use normal horizontal movement when grounded
+            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity, accel);
+        }
+        else if (targetVelocity != Vector3.zero)
+        {
+            //if not grounded but still pressing something
+
+            //normalise inputdirection vector so dot product calculation is correct
+            Vector3 desiredDir = inputDir.normalized;
+
+            //calculate magnitude of velocity in desired direction (user is pressing towards)
+            float speedInDesiredDir = Vector3.Dot(horizontalVelocity, desiredDir);
+
+            //max air speed by default equal to move speed, allowing it to always at least be able to accelerate to that speed within the air
+            float maxAirSpeed = currentMoveSpeed;
+
+            //if desired direction is cancelling out the current, accelerate in that direction towards max air speed there
+            //this also prevents slowing down if going faster than max air speed
+            if (speedInDesiredDir < maxAirSpeed)
+            {
+                float addSpeed = maxAirSpeed - speedInDesiredDir;
+                addSpeed = Mathf.Min(addSpeed, accel);
+
+                horizontalVelocity += desiredDir * addSpeed;
+            }
+        }
 
         //apply final velocity now including unchanged vertical velocity (y component)
         rb.velocity = new Vector3(horizontalVelocity.x, currentVelocity.y, horizontalVelocity.z);
+        velocity.x = rb.velocity.x; velocity.y = rb.velocity.z;
 
 
-        if (isGrounded && jumping){
+        if (isGrounded && jumping)
+        {
             //nullify any existing vertical velocity before adding jump force
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -107,7 +134,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isGrounded", false);
             hasDoubleJumped = false;
         }
-        else if (canDoubleJump && jumping && !hasDoubleJumped){
+        else if (canDoubleJump && jumping && !hasDoubleJumped)
+        {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             float doubleJumpForce = jumpForce * doubleJumpMultiplier;
             rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
@@ -116,12 +144,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
         }
 
-        if (speedBoostActive){
+        if (speedBoostActive)
+        {
             //decrease speed boost timer
             speedBoostTimer -= Time.fixedDeltaTime;
 
             //if timer runs out, reset move speed back to base value and deactivate speed boost
-            if (speedBoostTimer <= 0f){
+            if (speedBoostTimer <= 0f)
+            {
                 moveSpeed = baseMoveSpeed;
                 speedBoostActive = false;
             }
