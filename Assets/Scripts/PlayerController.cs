@@ -6,13 +6,16 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
+    //default movement speed that is adjustable
     public float baseMoveSpeed = 5f;
-    public float moveSpeed;
+    //current movement speed that can be modified by coins etc. (e.g. speed boost)
+    private float moveSpeed;
     public bool isGrounded = true;
     public bool jumping = false;
+    public float baseAcceleration = 5f;
 
-    //used for accelerating and slowing down while on ice
-    private Vector2 velocity = new Vector2(0f, 0f);
+    //used for accelerating and slowing down
+    public Vector2 velocity = new Vector2(0f, 0f);
 
     private Vector2 moveInput;
     private Rigidbody rb;
@@ -33,8 +36,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 checkpointpos = new Vector3(0f, 0f, 0f);
 
     public bool icy = false;
-    public float iceaccel = 0.02f;
-    public float icedecel = 0.02f;
+    public float iceAccel = 0.5f;
 
     //animator
     private Animator animator;
@@ -50,95 +52,62 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 move;
-        if (icy == true)
-        {
-            //add inputs to velocity vectors to act as acceleration/deceleration if trying to move in that direction
-            if (moveInput.x != 0f)
-            {
-                velocity.x += (moveInput.x * iceaccel);
-                //cap velocity vectors if neccessary
-                if (Math.Abs(velocity.x) > 1f)
-                {
-                    velocity.x -= (moveInput.x * iceaccel);
-                }
-            }
-            //applies deceleration from not moving in that axis
-            else if(velocity.x > icedecel)
-            {
-                Debug.Log("decel");
-                velocity.x -= icedecel;
-            }
-            else if(velocity.x< (-icedecel))
-            {
-                velocity.x += icedecel;
-            }
-            else
-            {
-                velocity.x = 0f;
-            }
+        //sets acceleration and movespeed to ice or normal based on icy status
+        float accel = baseAcceleration * Time.fixedDeltaTime;
+        //move speed used in calculations based off moveSpeed (which can be increased)
+        float currentMoveSpeed;
 
-            //same for y axis
-            if (moveInput.y != 0f)
-            {
-                velocity.y += (moveInput.y * iceaccel);
-                if (Math.Abs(velocity.y) > 1f)
-                {
-                    velocity.y -= (moveInput.y * iceaccel);
-                }
-
-            }
-            else if (velocity.y > icedecel)
-            {
-                velocity.y -= icedecel;
-            }
-            else if (velocity.y < (-icedecel))
-            {
-                velocity.y += icedecel;
-            }
-            else
-            {
-                velocity.y = 0f;
-            }
-
-            //applies the velocity onto move vector
-            move = transform.right * velocity.x + transform.forward * velocity.y;
+        //change acceleration and movespeed if on ice
+        if (icy){
+            accel = iceAccel * Time.fixedDeltaTime;
+            currentMoveSpeed = moveSpeed * 2f;
         }
-        else 
-        {
-            velocity = moveInput;
-            move = transform.right * moveInput.x + transform.forward * moveInput.y;
+        else{
+            currentMoveSpeed = moveSpeed;
         }
 
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         animator.SetBool("isGrounded", isGrounded);
-        if (isGrounded)
-        {
-            // Ground movement - use MovePosition
-            rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+
+        //make acceleration less while in air (to give less control)
+        if (!isGrounded){
+            accel = accel / 2f;
         }
-        else
-        {
-            // Air movement - use velocity for horizontal, preserve vertical
-            Vector3 airMove = move * moveSpeed * Time.fixedDeltaTime;
-            rb.velocity = new Vector3(airMove.x / Time.fixedDeltaTime, rb.velocity.y, airMove.z / Time.fixedDeltaTime);
-            if (move == Vector3.zero)
-            {
-                rb.AddForce(Vector3.down * 9.81f * Time.fixedDeltaTime, ForceMode.Acceleration);
-            }
-        }
-        
-        if (isGrounded && jumping)
-        {
+
+        //calculate input direction vector for xz plane (horizontal movement)
+        Vector3 inputDir = transform.right * moveInput.x + transform.forward * moveInput.y;
+        inputDir.y = 0f;
+
+        /*/calculate if magnitude is greater than 1 (which will work for any direction it could be) and normalize (reduce to magnitude of 1)
+        if (inputDir.sqrMagnitude > 1f)
+            inputDir.Normalize();
+        */
+
+        Vector3 targetVelocity = inputDir * currentMoveSpeed;
+        Vector3 currentVelocity = rb.velocity;
+
+        //take current horizontal velocity (xz plane) only to use for horizontal movement calculation
+        Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
+
+        //smooth acceleration from current horizontal velocity to target velocity
+        horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity, accel);
+
+        //apply final velocity now including unchanged vertical velocity (y component)
+        rb.velocity = new Vector3(horizontalVelocity.x, currentVelocity.y, horizontalVelocity.z);
+
+
+        if (isGrounded && jumping){
+            //nullify any existing vertical velocity before adding jump force
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
             jumping = false;
             isGrounded = false;
             animator.SetBool("Jumping", false);
             animator.SetBool("isGrounded", false);
             hasDoubleJumped = false;
         }
-        else if (canDoubleJump && jumping && !hasDoubleJumped)
-        {
+        else if (canDoubleJump && jumping && !hasDoubleJumped){
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             float doubleJumpForce = jumpForce * doubleJumpMultiplier;
             rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
@@ -146,12 +115,13 @@ public class PlayerController : MonoBehaviour
             jumping = false;
             animator.SetBool("Jumping", false);
         }
-        
-        if (speedBoostActive)
-        {
+
+        if (speedBoostActive){
+            //decrease speed boost timer
             speedBoostTimer -= Time.fixedDeltaTime;
-            if (speedBoostTimer <= 0f)
-            {
+
+            //if timer runs out, reset move speed back to base value and deactivate speed boost
+            if (speedBoostTimer <= 0f){
                 moveSpeed = baseMoveSpeed;
                 speedBoostActive = false;
             }
@@ -165,9 +135,9 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("StrafingMovement", moveInput.x);
     }
 
-    void OnJump(InputValue inputValue)
+    void OnJump(InputValue value)
     {
-        if (inputValue.isPressed)
+        if (value.isPressed)
         {
             jumping = true;
             animator.SetBool("Jumping", true);

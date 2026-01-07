@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: crackedrock
-  m_Shader: {fileID: -6465566751694194690, guid: 8657c26ca0ee3d140aa8a8d059bf3cd1, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b4278cee0937a044e9ba2c33d579d072, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -81,6 +81,7 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
+    - _Object_Space: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.08
     - _Smoothness: 0
