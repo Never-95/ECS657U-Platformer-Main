@@ -4972,7 +4972,7 @@ Transform:
   m_GameObject: {fileID: 1513053734}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.69, y: 31.01, z: -27.03}
+  m_LocalPosition: {x: 0.69, y: 31.01, z: -28.27}
   m_LocalScale: {x: 3, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5299,7 +5299,7 @@ MonoBehaviour:
   maxOxygen: 60
   currentOxygen: 0
   oxygenDepletionRate: 5
-  oxygenDamageRate: 10
+  oxygenDamageRate: 5
   oxygenBarSlider: {fileID: 1117909866}
   damageAmount: 20
   damageCooldown: 0.5

@@ -15,15 +15,13 @@ public class PlayerHealth : MonoBehaviour
     public float maxOxygen = 60f;
     public float currentOxygen;
     public float oxygenDepletionRate = 5f;
-    public float oxygenDamageRate = 10f;
+    public float oxygenDamageRate = 5f;
     public Slider oxygenBarSlider;
     
     [Header("Damage Settings")]
     public float damageAmount = 20f;
-    
-    private float oxygenDepletionTimer = 0f;  // You named it this
+    private float oxygenDepletionTimer = 0f;
     private bool oxygenDepleted = false;
-
     public float damageCooldown = 0.5f;
     private float lastDamageTime;
     
@@ -37,12 +35,12 @@ public class PlayerHealth : MonoBehaviour
     
     void Update()
     {
-        oxygenDepletionTimer += Time.deltaTime;  // FIXED: was "oxygenTimer"
+        oxygenDepletionTimer += Time.deltaTime;
         
         if (oxygenDepletionTimer >= oxygenDepletionRate)
         {
             currentOxygen -= oxygenDepletionRate;
-            oxygenDepletionTimer = 0f;  // FIXED: was "oxygenTimer"
+            oxygenDepletionTimer = 0f;
             
             if (currentOxygen <= 0)
             {
@@ -58,25 +56,38 @@ public class PlayerHealth : MonoBehaviour
         
         if (oxygenDepleted)
         {
-            TakeDamage(damageAmount);  // FIXED: was "oxygenDamageAmount"
+            TakeOxygenDamage(oxygenDamageRate * Time.deltaTime);
         }
     }
     
+    // Oxygen damage - no cooldown, applies every frame
+    private void TakeOxygenDamage(float amount)
+    {
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHealthBar();
+        
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
+    }
+    
+    // Enemy/external damage - has cooldown to prevent spam
     public void TakeDamage(float amount)
     {
         if (Time.time >= lastDamageTime + damageCooldown)
         {
             lastDamageTime = Time.time;
-            currentHealth -= amount;  // FIXED: was "damage"
-            Debug.Log("Player took " + amount + " damage.");
+            currentHealth -= amount;
+            Debug.Log("Player took " + amount + " damage. Current health: " + currentHealth);
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             UpdateHealthBar();
-            lastDamageTime = Time.time;
-        }
-
-        if (currentHealth <= 0f)
-        {
-            Die();
+            
+            if (currentHealth <= 0f)
+            {
+                Die();
+            }
         }
     }
     
@@ -85,10 +96,10 @@ public class PlayerHealth : MonoBehaviour
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         UpdateHealthBar();
-        Debug.Log("Player healed by " + amount + " points.");  // FIXED: capital L in Log
+        Debug.Log("Player healed by " + amount + " points.");
     }
     
-    public void RestoreOxygen(float amount)  // ADD THIS METHOD
+    public void RestoreOxygen(float amount)
     {
         currentOxygen += amount;
         currentOxygen = Mathf.Clamp(currentOxygen, 0f, maxOxygen);
@@ -123,10 +134,10 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player has died.");
         StartCoroutine(RespawnDelay());
     }
-
+    
     private System.Collections.IEnumerator RespawnDelay()
     {
-        // Optional: Disable player controls during respawn
+        // Disable player controls during respawn
         PlayerController pc = GetComponent<PlayerController>();
         if (pc != null)
         {
