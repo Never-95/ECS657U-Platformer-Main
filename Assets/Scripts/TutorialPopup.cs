@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 public class TutorialPopup : MonoBehaviour
 {
     [Header("UI References")]
-    public GameObject popupPanel;           // The popup background panel
-    public TextMeshProUGUI messageText;     // The message text
-    public TextMeshProUGUI continueText;    // "Press Space to continue" text
+    public GameObject popupPanel;
+    public TextMeshProUGUI messageText;
+    public TextMeshProUGUI continueText;
     
     [Header("Popup Settings")]
     public bool pauseGameDuringPopup = true;
@@ -18,6 +18,7 @@ public class TutorialPopup : MonoBehaviour
     
     private bool isShowingPopup = false;
     private CanvasGroup canvasGroup;
+    private PlayerController playerController;
     
     void Start()
     {
@@ -30,6 +31,9 @@ public class TutorialPopup : MonoBehaviour
                 canvasGroup = popupPanel.AddComponent<CanvasGroup>();
             }
         }
+        
+        // Find player controller
+        playerController = FindObjectOfType<PlayerController>();
         
         // Hide popup at start
         HidePopup();
@@ -59,6 +63,18 @@ public class TutorialPopup : MonoBehaviour
         if (messageText != null)
         {
             messageText.text = message;
+        }
+        
+        // IMPORTANT: Clear jump state BEFORE disabling
+        if (playerController != null)
+        {
+            playerController.jumping = false; // Clear any queued jump
+        }
+        
+        // Disable player controls
+        if (playerController != null)
+        {
+            playerController.enabled = false;
         }
         
         // Pause game if enabled
@@ -114,6 +130,21 @@ public class TutorialPopup : MonoBehaviour
         if (pauseGameDuringPopup)
         {
             Time.timeScale = 1f;
+        }
+        
+        // IMPORTANT: Clear jump state again before re-enabling
+        if (playerController != null)
+        {
+            playerController.jumping = false; // Prevent jump after closing
+        }
+        
+        // Small delay before re-enabling to let input clear
+        yield return new WaitForSecondsRealtime(0.1f);
+        
+        // Re-enable player controls
+        if (playerController != null)
+        {
+            playerController.enabled = true;
         }
         
         isShowingPopup = false;
