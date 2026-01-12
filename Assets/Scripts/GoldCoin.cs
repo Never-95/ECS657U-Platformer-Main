@@ -3,13 +3,13 @@ using UnityEngine;
 public class GoldCoin : MonoBehaviour
 {
     [Header("Coin Settings")]
+    public int coinID;  // Unique ID for this specific coin
     public int coinValue = 1;
     public bool rotateAnimation = true;
     public float rotationSpeed = 100f;
     
-    [Header("Effects")]
-    public AudioClip collectSound;
-    public ParticleSystem collectEffect;
+    [Header("Visual")]
+    public Sprite coinSprite;  // Optional: custom sprite for this coin
     
     void Update()
     {
@@ -23,21 +23,16 @@ public class GoldCoin : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Add to inventory
+            // Add to collection book
+            if (CollectionBook.Instance != null)
+            {
+                CollectionBook.Instance.CollectCoin(coinID);
+            }
+            
+            // Also add to old inventory system if you want to keep coin counter
             if (InventorySystem.Instance != null)
             {
                 InventorySystem.Instance.AddCoin(coinValue);
-            }
-            
-            // Play effects
-            if (collectSound != null)
-            {
-                AudioSource.PlayClipAtPoint(collectSound, transform.position);
-            }
-            
-            if (collectEffect != null)
-            {
-                Instantiate(collectEffect, transform.position, Quaternion.identity);
             }
             
             // Destroy coin
