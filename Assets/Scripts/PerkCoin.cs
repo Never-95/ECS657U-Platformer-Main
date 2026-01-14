@@ -14,7 +14,7 @@ public class PerkCoin : MonoBehaviour
     public string nextSceneName = "";
     public float levelEndDelay = 1f;
     public TextMeshProUGUI levelCompleteText;
-    public Button continueButton;
+    public UIAssistant.ColoredButton continueButton;
     public string completionMessage = "Congratulations! Level Complete!";
 
     [Header ("Health/Oxygen Restore Settings")]
