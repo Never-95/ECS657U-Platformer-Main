@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class CollectionBook : MonoBehaviour
 {
@@ -43,16 +44,26 @@ public class CollectionBook : MonoBehaviour
     
     void Start()
     {
-        // Create coin slots
         CreateCoinSlots();
         
-        // Hide book at start
         if (collectionBookPanel != null)
         {
             collectionBookPanel.SetActive(false);
         }
         
         UpdateCollectionDisplay();
+        
+        // Setup close button click - ADD THIS SECTION
+        Button closeBtn = collectionBookPanel.GetComponentInChildren<Button>();
+        if (closeBtn != null)
+        {
+            closeBtn.onClick.AddListener(CloseBook);
+            Debug.Log("Close button listener added!");
+        }
+        else
+        {
+            Debug.LogWarning("Close button not found!");
+        }
     }
     
     void Update()
@@ -127,17 +138,29 @@ public class CollectionBook : MonoBehaviour
             collectionBookPanel.SetActive(isBookOpen);
         }
         
-        // Optional: Pause game when book is open
+        // Pause/unpause game
         Time.timeScale = isBookOpen ? 0f : 1f;
         
-        // Optional: Disable player controls
+        // Show/hide cursor - ADD THIS
+        if (isBookOpen)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        
+        // Disable/enable player controls
         PlayerController player = FindObjectOfType<PlayerController>();
         if (player != null)
         {
             player.enabled = !isBookOpen;
         }
     }
-    
+
     public void OpenBook()
     {
         isBookOpen = true;
@@ -145,8 +168,12 @@ public class CollectionBook : MonoBehaviour
         {
             collectionBookPanel.SetActive(true);
         }
+        
+        // Show cursor - ADD THIS
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
-    
+
     public void CloseBook()
     {
         isBookOpen = false;
@@ -154,7 +181,12 @@ public class CollectionBook : MonoBehaviour
         {
             collectionBookPanel.SetActive(false);
         }
+        
         Time.timeScale = 1f;
+        
+        // Hide cursor again - ADD THIS
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         
         PlayerController player = FindObjectOfType<PlayerController>();
         if (player != null)
@@ -162,7 +194,7 @@ public class CollectionBook : MonoBehaviour
             player.enabled = true;
         }
     }
-    
+        
     // Check if all coins collected
     public bool AllCoinsCollected()
     {

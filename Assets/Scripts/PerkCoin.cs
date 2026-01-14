@@ -51,6 +51,11 @@ public class PerkCoin : MonoBehaviour
                         break;
                         
                     case PerkType.LevelEnd:
+                        GoldCoin goldCoin = GetComponent<GoldCoin>();
+                        if (goldCoin != null && CollectionBook.Instance != null)
+                        {
+                            CollectionBook.Instance.CollectCoin(goldCoin.coinID);
+                        }
                         StartCoroutine(EndLevelProcess());
                         return;
                         
