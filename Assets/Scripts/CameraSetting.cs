@@ -10,6 +10,7 @@ public class CameraSetting : MonoBehaviour
 
     public Transform target; // The player body or object the camera follows
     public Transform player;
+    private bool levelend=false;
 
     void Start()
     {
@@ -20,6 +21,10 @@ public class CameraSetting : MonoBehaviour
 
     void Update()
     {
+        if (levelend)
+        {
+            return;
+        }
         // --- Mouse input ---
         float mouseX = UnityEngine.Input.GetAxis("Mouse X") * Xaxis;
         float mouseY = UnityEngine.Input.GetAxis("Mouse Y") * Yaxis;
@@ -30,6 +35,12 @@ public class CameraSetting : MonoBehaviour
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
 
         // --- Keep camera on player position ---
+    }
+    public void EndLevelCamera()
+    {
+        levelend = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
  

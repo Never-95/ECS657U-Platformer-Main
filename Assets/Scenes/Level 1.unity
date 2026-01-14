@@ -171,6 +171,7 @@ MonoBehaviour:
   nextSceneName: 
   levelEndDelay: 1
   levelCompleteText: {fileID: 0}
+  continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 0
 --- !u!64 &70998947
@@ -979,6 +980,119 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4971833429020486, guid: 00e1ee32ad6164e57b14f3c2b6f7257b, type: 3}
   m_PrefabInstance: {fileID: 1073325525}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &389705092
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1169004131}
+    m_Modifications:
+    - target: {fileID: 7947185782940448060, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_Name
+      value: Next Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448060, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -272
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185784282582361, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_Name
+      value: Next Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185784282582363, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_text
+      value: Next Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947185784282582363, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
 --- !u!1001 &409221509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1656,9 +1770,8 @@ GameObject:
   - component: {fileID: 676717955}
   - component: {fileID: 676717954}
   - component: {fileID: 676717953}
-  - component: {fileID: 676717952}
   - component: {fileID: 676717951}
-  - component: {fileID: 676717950}
+  - component: {fileID: 676717957}
   m_Layer: 0
   m_Name: EndLevelCoin
   m_TagString: Untagged
@@ -1666,26 +1779,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &676717950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676717949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 014ab35bb9cda48d38faef88ca00d6e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  perkType: 3
-  effectDuration: 5
-  speedMultiplier: 2
-  nextSceneName: 
-  levelEndDelay: 1
-  levelCompleteText: {fileID: 660551571}
-  completionMessage: Congratulations! Level Complete!
-  restoreAmount: 30
 --- !u!114 &676717951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,26 +1791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dcdf5b32ab19444eae9456abf5ba146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &676717952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676717949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 014ab35bb9cda48d38faef88ca00d6e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  perkType: 3
-  effectDuration: 10
-  speedMultiplier: 5
-  nextSceneName: 
-  levelEndDelay: 1
-  levelCompleteText: {fileID: 660551571}
-  completionMessage: Congratulations! Level Complete!
-  restoreAmount: 30
 --- !u!64 &676717953
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1805,6 +1878,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1470206900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &676717957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676717949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014ab35bb9cda48d38faef88ca00d6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perkType: 3
+  effectDuration: 5
+  speedMultiplier: 2
+  nextSceneName: Level 2
+  levelEndDelay: 1
+  levelCompleteText: {fileID: 660551571}
+  continueButton: {fileID: 1376667092}
+  completionMessage: Congratulations! Level Complete!
+  restoreAmount: 30
 --- !u!114 &677923209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1835,6 +1929,7 @@ MonoBehaviour:
   nextSceneName: 
   levelEndDelay: 1
   levelCompleteText: {fileID: 0}
+  continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
 --- !u!1 &680583985
@@ -3571,6 +3666,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 660551570}
+  - {fileID: 1375585365}
   - {fileID: 1200270146}
   - {fileID: 1117909865}
   m_Father: {fileID: 0}
@@ -3777,6 +3873,7 @@ MonoBehaviour:
   nextSceneName: 
   levelEndDelay: 1
   levelCompleteText: {fileID: 660551571}
+  continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
 --- !u!64 &1257894800
@@ -4123,6 +4220,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372978577}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!224 &1375585365 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7947185782940448063, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+  m_PrefabInstance: {fileID: 389705092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1376667092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7947185782940448049, guid: 7c551a22f1b6bae40b5081b4136da917, type: 3}
+  m_PrefabInstance: {fileID: 389705092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6deb8ec3f71056438d0d04c9a7d7867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1396996373
 GameObject:
   m_ObjectHideFlags: 0
@@ -5779,6 +5892,7 @@ MonoBehaviour:
   nextSceneName: 
   levelEndDelay: 1
   levelCompleteText: {fileID: 660551571}
+  continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
 --- !u!64 &2037465102
@@ -6717,6 +6831,7 @@ MonoBehaviour:
   nextSceneName: 
   levelEndDelay: 1
   levelCompleteText: {fileID: 0}
+  continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
 --- !u!1660057539 &9223372036854775807
