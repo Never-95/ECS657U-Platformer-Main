@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1772747, g: 0.2219291, b: 0.3041697, a: 1}
+  m_IndirectSpecularColor: {r: 0.1772744, g: 0.22192867, b: 0.3041691, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -683,6 +683,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 0
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &103584443
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -810,6 +813,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &108056113
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1928,6 +1935,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &239948047
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2331,6 +2342,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &336734084
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2802,6 +2817,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 100
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &415626527
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2929,6 +2947,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &420932643
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3925,6 +3947,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       insertIndex: -1
       addedObject: {fileID: 676558562}
+    - targetCorrespondingSourceObject: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 676558569}
   m_SourcePrefab: {fileID: 100100000, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
 --- !u!1 &676558560 stripped
 GameObject:
@@ -3958,6 +3983,11 @@ MonoBehaviour:
   oxygenBarSlider: {fileID: 1833703215}
   damageAmount: 20
   damageCooldown: 0.5
+  hitSound: {fileID: 8300000, guid: 6463f257e19134b72a42717fcbf98e37, type: 3}
+  oxygenBurstSound: {fileID: 8300000, guid: fb0520f88fefa4ccc91cb4f6191b14a9, type: 3}
+  suffocationSound: {fileID: 8300000, guid: 5954ad3d47c364781bff6123cd622f59, type: 3}
+  hitVolume: 0.3
+  suffocationVolume: 0.1
 --- !u!64 &676558563
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4123,6 +4153,25 @@ MonoBehaviour:
   doubleJumpMultiplier: 1.7
   icy: 0
   iceAccel: 5
+  jumpSound: {fileID: 8300000, guid: 953630b3acc5842dba1303b2758f1434, type: 3}
+  landSound: {fileID: 8300000, guid: 641619ced9c9047d8af4fd38aa450434, type: 3}
+--- !u!114 &676558569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676558560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba42275a0458947779612a35ea566a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepSounds:
+  - {fileID: 8300000, guid: 9ab893899e96c48e880d0a1e9d28e785, type: 3}
+  audioSource: {fileID: 0}
+  stepDistance: 2
+  footstepVolume: 0.3
 --- !u!1001 &686000626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4659,6 +4708,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &760535403
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5580,6 +5633,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 100
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &974569243
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7206,6 +7262,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &1244005549
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7720,6 +7779,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &1297232020
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7934,6 +7997,9 @@ MonoBehaviour:
   continueButton: {fileID: 688794663}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!114 &1328280269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8303,6 +8369,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &1393737274
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8817,6 +8887,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &1487317017
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9389,6 +9462,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &1542265706
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10322,6 +10399,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &1721596041
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10475,6 +10556,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &1727338014
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10733,6 +10818,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 100
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &1740898393
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11352,6 +11440,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &1898412978
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11601,6 +11692,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &2026735111
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11999,6 +12094,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &2068825701
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12166,6 +12265,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 100
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &2081918237
 MeshCollider:
   m_ObjectHideFlags: 0
