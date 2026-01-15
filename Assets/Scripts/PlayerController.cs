@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     //animator
     private Animator animator;
 
+    private bool respawnRequest = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -52,6 +54,21 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //if respawn is pressed remove any existing movement and skip movement for this update
+        if (respawnRequest)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.position = checkpointpos;
+            rb.Sleep();
+
+            jumping = false;
+            hasDoubleJumped = false;
+            respawnRequest = false;
+            return;
+        }
+
+
         //sets acceleration and movespeed to ice or normal based on icy status
         float accel = baseAcceleration * Time.fixedDeltaTime;
         //move speed used in calculations based off moveSpeed (which can be increased)
@@ -178,7 +195,7 @@ public class PlayerController : MonoBehaviour
     {
         if (value.isPressed)
         {
-            transform.position = checkpointpos;
+            respawnRequest = true;
         }
     }
     void OnCollisionStay(Collision collision)
