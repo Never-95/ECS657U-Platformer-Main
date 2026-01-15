@@ -5989,7 +5989,7 @@ MonoBehaviour:
   icy: 0
   iceAccel: 5
   jumpSound: {fileID: 8300000, guid: 953630b3acc5842dba1303b2758f1434, type: 3}
-  landSound: {fileID: 0}
+  landSound: {fileID: 8300000, guid: 641619ced9c9047d8af4fd38aa450434, type: 3}
 --- !u!54 &1656855457
 Rigidbody:
   m_ObjectHideFlags: 0
