@@ -3,13 +3,15 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public Vector3 pointA; // Start position
-    public Vector3 pointB; // End position
+    public Vector3 pointA;
+    public Vector3 pointB;
     public float speed = 2f;
-    public bool useLocalPosition = true; // Use local or world coordinates
-    
+    public bool useLocalPosition = true;
+
     private Vector3 targetPosition;
     private Vector3 startPosition;
+
+    private Vector3 lastPlatformPos;
 
     void Start()
     {
@@ -17,77 +19,59 @@ public class MovingPlatform : MonoBehaviour
         {
             startPosition = transform.localPosition;
             pointA = startPosition;
-            pointB = startPosition + pointB; // Add offset to start position
+            pointB = startPosition + pointB;
+            lastPlatformPos = transform.localPosition;
         }
         else
         {
             startPosition = transform.position;
+            lastPlatformPos = transform.position;
         }
-        
+
         targetPosition = pointB;
     }
 
     void FixedUpdate()
     {
+        // Store platform pos BEFORE moving
+        Vector3 before = useLocalPosition ? transform.localPosition : transform.position;
+
         // Move platform
         if (useLocalPosition)
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, speed * Time.fixedDeltaTime);
-            
-            // Switch direction when reached target
             if (Vector3.Distance(transform.localPosition, targetPosition) < 0.01f)
-            {
-                targetPosition = targetPosition == pointA ? pointB : pointA;
-            }
+                targetPosition = (targetPosition == pointA) ? pointB : pointA;
         }
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.fixedDeltaTime);
-            
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
-            {
-                targetPosition = targetPosition == pointA ? pointB : pointA;
-            }
+                targetPosition = (targetPosition == pointA) ? pointB : pointA;
+        }
+
+        // Compute platform delta this frame
+        Vector3 after = useLocalPosition ? transform.localPosition : transform.position;
+        Vector3 platformDelta = after - before;
+
+        // If a player is on it, add delta to player
+        if (_playerRb != null)
+        {
+            _playerRb.MovePosition(_playerRb.position + platformDelta);
         }
     }
 
-    // Make player move with platform
+    private Rigidbody _playerRb;
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.transform.SetParent(transform);
-        }
+            _playerRb = collision.rigidbody; // grab rigidbody
     }
 
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.transform.SetParent(null);
-        }
-    }
-
-    // Visualize movement path in editor
-    void OnDrawGizmos()
-    {
-        if (useLocalPosition)
-        {
-            Vector3 start = Application.isPlaying ? pointA : transform.localPosition;
-            Vector3 end = Application.isPlaying ? pointB : transform.localPosition + pointB;
-            
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.parent ? transform.parent.TransformPoint(start) : start, 
-                           transform.parent ? transform.parent.TransformPoint(end) : end);
-            Gizmos.DrawWireSphere(transform.parent ? transform.parent.TransformPoint(start) : start, 0.3f);
-            Gizmos.DrawWireSphere(transform.parent ? transform.parent.TransformPoint(end) : end, 0.3f);
-        }
-        else
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(pointA, pointB);
-            Gizmos.DrawWireSphere(pointA, 0.3f);
-            Gizmos.DrawWireSphere(pointB, 0.3f);
-        }
+            _playerRb = null;
     }
 }

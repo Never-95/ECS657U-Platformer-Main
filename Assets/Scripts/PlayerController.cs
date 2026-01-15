@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
     //animator
     private Animator animator;
 
+    [Header("Audio")]
+    public AudioClip jumpSound;
+    public AudioClip landSound;
+    private AudioSource audioSource;
+    private bool wasGrounded = false;
     private bool respawnRequest = false;
 
     void Start()
@@ -50,6 +55,14 @@ public class PlayerController : MonoBehaviour
         rb.useGravity = true;
         moveSpeed = baseMoveSpeed;
         animator = GetComponent<Animator>();
+        
+        // Get or create audio source
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+        }
     }
 
     void FixedUpdate()
@@ -145,6 +158,12 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
+            // Play jump sound
+            if (jumpSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(jumpSound, 0.5f);
+            }
+
             jumping = false;
             isGrounded = false;
             animator.SetBool("Jumping", false);
@@ -156,6 +175,13 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             float doubleJumpForce = jumpForce * doubleJumpMultiplier;
             rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
+            
+            // Play double jump sound
+            if (jumpSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(jumpSound, 0.6f);
+            }
+            
             hasDoubleJumped = true;
             jumping = false;
             animator.SetBool("Jumping", false);
@@ -173,6 +199,21 @@ public class PlayerController : MonoBehaviour
                 speedBoostActive = false;
             }
         }
+    }
+
+    void LateUpdate()
+    {
+        // Detect landing
+        if (isGrounded && !wasGrounded)
+        {
+            // Just landed!
+            if (landSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(landSound, 0.4f);
+            }
+        }
+        
+        wasGrounded = isGrounded;
     }
 
     void OnMove(InputValue value)
@@ -198,6 +239,7 @@ public class PlayerController : MonoBehaviour
             respawnRequest = true;
         }
     }
+    
     void OnCollisionStay(Collision collision)
     {
         // Check if we're colliding with walls/sides

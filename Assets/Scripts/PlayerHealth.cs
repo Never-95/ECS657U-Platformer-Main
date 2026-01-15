@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     public float maxOxygen = 60f;
     public float currentOxygen;
     public float oxygenDepletionRate = 5f;
-    public float oxygenDamageRate = 10f;
+    public float oxygenDamageRate = 5f;
     public Slider oxygenBarSlider;
     
     [Header("Damage Settings")]
@@ -23,7 +23,6 @@ public class PlayerHealth : MonoBehaviour
     
     private float oxygenDepletionTimer = 0f;
     private bool oxygenDepleted = false;
-
     public float damageCooldown = 0.5f;
     private float lastDamageTime;
     
@@ -58,25 +57,38 @@ public class PlayerHealth : MonoBehaviour
         
         if (oxygenDepleted)
         {
-            TakeDamage(damageAmount);
+            TakeOxygenDamage(oxygenDamageRate * Time.deltaTime);
         }
     }
     
+    // Oxygen damage - no cooldown, applies every frame
+    private void TakeOxygenDamage(float amount)
+    {
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHealthBar();
+        
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
+    }
+    
+    // Enemy/external damage - has cooldown to prevent spam
     public void TakeDamage(float amount)
     {
         if (Time.time >= lastDamageTime + damageCooldown)
         {
             lastDamageTime = Time.time;
             currentHealth -= amount;
-            Debug.Log("Player took " + amount + " damage.");
+            Debug.Log("Player took " + amount + " damage. Current health: " + currentHealth);
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             UpdateHealthBar();
-            lastDamageTime = Time.time;
-        }
-
-        if (currentHealth <= 0f)
-        {
-            Die();
+            
+            if (currentHealth <= 0f)
+            {
+                Die();
+            }
         }
     }
     
@@ -123,10 +135,10 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player has died.");
         StartCoroutine(RespawnDelay());
     }
-
+    
     private System.Collections.IEnumerator RespawnDelay()
     {
-        // Optional: Disable player controls during respawn
+        // Disable player controls during respawn
         PlayerController pc = GetComponent<PlayerController>();
         if (pc != null)
         {
