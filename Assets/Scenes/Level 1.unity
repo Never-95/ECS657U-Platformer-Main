@@ -6121,10 +6121,8 @@ MonoBehaviour:
   footstepSounds:
   - {fileID: 8300000, guid: 9ab893899e96c48e880d0a1e9d28e785, type: 3}
   audioSource: {fileID: 0}
-  baseStepInterval: 0.5
-  runStepInterval: 0.3
-  minimumSpeed: 0.5
-  footstepVolume: 5
+  stepDistance: 2
+  footstepVolume: 0.3
 --- !u!1 &1656957112 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1275296073236532, guid: 97c4750ee91a54b4a9e7f7464ab77873, type: 3}
