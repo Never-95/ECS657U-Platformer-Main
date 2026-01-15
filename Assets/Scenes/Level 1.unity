@@ -2491,8 +2491,8 @@ GameObject:
   - component: {fileID: 676717954}
   - component: {fileID: 676717953}
   - component: {fileID: 676717951}
-  - component: {fileID: 676717957}
   - component: {fileID: 676717958}
+  - component: {fileID: 676717957}
   m_Layer: 0
   m_Name: EndLevelCoin
   m_TagString: Untagged
@@ -2631,7 +2631,7 @@ MonoBehaviour:
   perkType: 3
   effectDuration: 5
   speedMultiplier: 2
-  nextSceneName: 
+  nextSceneName: Level 2
   levelEndDelay: 1
   levelCompleteText: {fileID: 0}
   continueButton: {fileID: 0}
@@ -4042,7 +4042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5970201743661163459, guid: 71d5e3644ed9a964ca7abca70cbe6aa3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.7
+      value: 40.2
       objectReference: {fileID: 0}
     - target: {fileID: 5970201743661163459, guid: 71d5e3644ed9a964ca7abca70cbe6aa3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6417,7 +6417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3503990344862308524, guid: fa832a10e78c03943aa38f0c4cdab6aa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.532
+      value: 20.44
       objectReference: {fileID: 0}
     - target: {fileID: 3503990344862308524, guid: fa832a10e78c03943aa38f0c4cdab6aa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6562,8 +6562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd1f1c2007a64a858d6a032f756c9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialMessage: 'Coin Alert: Blue coins provide you with the abillity to double
-    jump. Check your in game menu to see what other abilities coins provide.'
+  tutorialMessage: 'Coin Alert: Coins provide you with perks. The blue one in front
+    of you allows you to double jump. Perk type is dependent on colour. '
   triggerOnce: 1
   displayDelay: 0.5
 --- !u!65 &1789643404
