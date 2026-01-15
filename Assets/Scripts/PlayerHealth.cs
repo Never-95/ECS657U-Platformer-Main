@@ -20,11 +20,20 @@ public class PlayerHealth : MonoBehaviour
     
     [Header("Damage Settings")]
     public float damageAmount = 20f;
-    
     private float oxygenDepletionTimer = 0f;
     private bool oxygenDepleted = false;
     public float damageCooldown = 0.5f;
     private float lastDamageTime;
+    
+    [Header("Audio Settings")]
+    public AudioClip hitSound;              // Single hit/cry sound
+    public AudioClip oxygenBurstSound;      // Sound when oxygen runs out
+    public AudioClip suffocationSound;      // Continuous pain sound (looping)
+    public float hitVolume = 0.7f;
+    public float suffocationVolume = 0.5f;
+    
+    private AudioSource audioSource;
+    private AudioSource suffocationAudioSource;  // Separate source for looping sound
     
     void Start()
     {
@@ -32,6 +41,20 @@ public class PlayerHealth : MonoBehaviour
         currentOxygen = maxOxygen;
         UpdateHealthBar();
         UpdateOxygenBar();
+        
+        // Create main audio source
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+        }
+        
+        // Create separate audio source for continuous suffocation sound
+        suffocationAudioSource = gameObject.AddComponent<AudioSource>();
+        suffocationAudioSource.playOnAwake = false;
+        suffocationAudioSource.loop = true;  // This will loop continuously
+        suffocationAudioSource.volume = suffocationVolume;
     }
     
     void Update()
@@ -50,6 +73,19 @@ public class PlayerHealth : MonoBehaviour
                 {
                     oxygenDepleted = true;
                     Debug.Log("Oxygen depleted! Starting to take damage.");
+                    
+                    // Play oxygen burst sound
+                    if (oxygenBurstSound != null && audioSource != null)
+                    {
+                        audioSource.PlayOneShot(oxygenBurstSound, 0.8f);
+                    }
+                    
+                    // Start continuous suffocation sound
+                    if (suffocationSound != null && suffocationAudioSource != null)
+                    {
+                        suffocationAudioSource.clip = suffocationSound;
+                        suffocationAudioSource.Play();
+                    }
                 }
             }
             UpdateOxygenBar();
@@ -85,6 +121,12 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             UpdateHealthBar();
             
+            // Play hit/cry sound
+            if (hitSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(hitSound, hitVolume);
+            }
+            
             if (currentHealth <= 0f)
             {
                 Die();
@@ -108,6 +150,12 @@ public class PlayerHealth : MonoBehaviour
         if (currentOxygen > 0f)
         {
             oxygenDepleted = false;
+            
+            // Stop suffocation sound when oxygen restored
+            if (suffocationAudioSource != null && suffocationAudioSource.isPlaying)
+            {
+                suffocationAudioSource.Stop();
+            }
         }
         
         UpdateOxygenBar();
@@ -133,6 +181,13 @@ public class PlayerHealth : MonoBehaviour
     public void Die()
     {
         Debug.Log("Player has died.");
+        
+        // Stop suffocation sound on death
+        if (suffocationAudioSource != null && suffocationAudioSource.isPlaying)
+        {
+            suffocationAudioSource.Stop();
+        }
+        
         StartCoroutine(RespawnDelay());
     }
     
@@ -152,6 +207,9 @@ public class PlayerHealth : MonoBehaviour
         {
             pc.enabled = true;
         }
+        
+        // Reset oxygen status
+        oxygenDepleted = false;
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
