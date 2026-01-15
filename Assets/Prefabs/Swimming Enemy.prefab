@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1779795888165690, guid: 203b004c6e5c64c0e9eaf43f0e81d5a8, type: 3}
       propertyPath: m_Name
-      value: shark Variant
+      value: Swimming Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4089818599022336, guid: 203b004c6e5c64c0e9eaf43f0e81d5a8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -74,14 +74,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1779795888165690, guid: 203b004c6e5c64c0e9eaf43f0e81d5a8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5482529441034579589}
+      addedObject: {fileID: -5994493505029164810}
   m_SourcePrefab: {fileID: 100100000, guid: 203b004c6e5c64c0e9eaf43f0e81d5a8, type: 3}
 --- !u!1 &4595248147345503548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1779795888165690, guid: 203b004c6e5c64c0e9eaf43f0e81d5a8, type: 3}
   m_PrefabInstance: {fileID: 4594739661798319622}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5482529441034579589
+--- !u!114 &-5994493505029164810
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  moveSpeed: 2
+  moveSpeed: 5
   rotationSpeed: 5
   patrolRadius: 5
-  liftHeight: 20
+  liftHeight: 10
   liftSpeed: 2

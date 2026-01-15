@@ -26,7 +26,7 @@ public class scr : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         startPosition = transform;
-        PickNewRandomPoint();
+        PickNewRandomPoint(startPosition.position);
     }
 
     // Update is called once per frame
@@ -57,13 +57,13 @@ public class scr : MonoBehaviour
             OnFly();
         }
     }
-    private void PickNewRandomPoint()
+    private void PickNewRandomPoint(Vector3 referencePosition)
     {
         // Random position inside unit sphere, then scaled
         Vector3 rnd = Random.insideUnitSphere * patrolRadius;
 
         // New point relative to current position
-        randomPatrolTarget = transform.position + rnd;
+        randomPatrolTarget = referencePosition + rnd;
     }
     private void OnFly()
     {
@@ -82,11 +82,9 @@ public class scr : MonoBehaviour
                 Time.deltaTime * rotationSpeed
             );
         }
-
-        // When close → pick a new random spot
         if (Vector3.Distance(transform.position, randomPatrolTarget) < 1f)
         {
-            PickNewRandomPoint();
+            PickNewRandomPoint(startPosition.position);
         }
     }
     private void OnChase()
