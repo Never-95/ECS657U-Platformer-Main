@@ -20,6 +20,11 @@ public class PerkCoin : MonoBehaviour
     [Header ("Health/Oxygen Restore Settings")]
     public float restoreAmount = 30f;
     
+    [Header("Audio Settings")]
+    public AudioClip collectSound;       // Sound for collecting perk coins
+    public AudioClip levelCompleteSound; // Special sound for level end coin
+    public float collectVolume = 0.7f;
+    
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("entered coin");
@@ -35,6 +40,8 @@ public class PerkCoin : MonoBehaviour
                         // INVENTORY TRACKING
                         if (InventorySystem.Instance != null)
                             InventorySystem.Instance.AddPerk("Speed Boost", effectDuration);
+                        // PLAY SOUND
+                        PlayCollectSound();
                         break;
                         
                     case PerkType.DoubleJump:
@@ -42,6 +49,8 @@ public class PerkCoin : MonoBehaviour
                         // INVENTORY TRACKING
                         if (InventorySystem.Instance != null)
                             InventorySystem.Instance.AddPerk("Double Jump", effectDuration);
+                        // PLAY SOUND
+                        PlayCollectSound();
                         break;
                         
                     case PerkType.Invisibility:
@@ -49,6 +58,8 @@ public class PerkCoin : MonoBehaviour
                         // INVENTORY TRACKING
                         if (InventorySystem.Instance != null)
                             InventorySystem.Instance.AddPerk("Invisibility", effectDuration);
+                        // PLAY SOUND
+                        PlayCollectSound();
                         break;
                         
                     case PerkType.LevelEnd:
@@ -56,6 +67,11 @@ public class PerkCoin : MonoBehaviour
                         if (goldCoin != null && CollectionBook.Instance != null)
                         {
                             CollectionBook.Instance.CollectCoin(goldCoin.coinID);
+                        }
+                        // PLAY LEVEL COMPLETE SOUND
+                        if (levelCompleteSound != null)
+                        {
+                            AudioSource.PlayClipAtPoint(levelCompleteSound, transform.position, collectVolume);
                         }
                         StartCoroutine(EndLevelProcess());
                         return;
@@ -66,6 +82,8 @@ public class PerkCoin : MonoBehaviour
                         {
                             playerHealth.Heal(restoreAmount);
                         }
+                        // PLAY SOUND
+                        PlayCollectSound();
                         break;
                         
                     case PerkType.OxygenRestore:
@@ -74,12 +92,22 @@ public class PerkCoin : MonoBehaviour
                         {
                             playerOxygen.RestoreOxygen(restoreAmount);
                         }
+                        // PLAY SOUND
+                        PlayCollectSound();
                         break;
                 }
                 
                 //Call CoinController script within parent object to temporarily deactivate coin
                 transform.parent.gameObject.GetComponent<CoinController>().DeactivateCoin(this.gameObject, effectDuration);
             }
+        }
+    }
+    
+    private void PlayCollectSound()
+    {
+        if (collectSound != null)
+        {
+            AudioSource.PlayClipAtPoint(collectSound, transform.position, collectVolume);
         }
     }
     
@@ -106,13 +134,5 @@ public class PerkCoin : MonoBehaviour
         {
             SceneManager.LoadScene(nextSceneName);
         }
-        // else
-        // {
-        //     #if UNITY_EDITOR
-        //     UnityEditor.EditorApplication.isPlaying = false;
-        //     #else
-        //     Application.Quit();
-        //     #endif
-        // }
     }
 }

@@ -274,6 +274,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 0
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &70998947
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -514,6 +517,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!1001 &164012031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2637,6 +2644,9 @@ MonoBehaviour:
   continueButton: {fileID: 1925222250}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!114 &677923209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2670,6 +2680,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!1 &680022076
 GameObject:
   m_ObjectHideFlags: 0
@@ -4886,6 +4899,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &1257894800
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5266,6 +5282,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &1372978580
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5968,8 +5988,8 @@ MonoBehaviour:
   doubleJumpMultiplier: 1.3
   icy: 0
   iceAccel: 5
-  jumpSound: {fileID: 0}
-  landSound: {fileID: 0}
+  jumpSound: {fileID: 8300000, guid: 953630b3acc5842dba1303b2758f1434, type: 3}
+  landSound: {fileID: 8300000, guid: 641619ced9c9047d8af4fd38aa450434, type: 3}
 --- !u!54 &1656855457
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6106,6 +6126,11 @@ MonoBehaviour:
   oxygenBarSlider: {fileID: 1117909866}
   damageAmount: 20
   damageCooldown: 0.5
+  hitSound: {fileID: 8300000, guid: 6463f257e19134b72a42717fcbf98e37, type: 3}
+  oxygenBurstSound: {fileID: 8300000, guid: fb0520f88fefa4ccc91cb4f6191b14a9, type: 3}
+  suffocationSound: {fileID: 8300000, guid: 5954ad3d47c364781bff6123cd622f59, type: 3}
+  hitVolume: 0.3
+  suffocationVolume: 0.1
 --- !u!114 &1656855463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6121,10 +6146,8 @@ MonoBehaviour:
   footstepSounds:
   - {fileID: 8300000, guid: 9ab893899e96c48e880d0a1e9d28e785, type: 3}
   audioSource: {fileID: 0}
-  baseStepInterval: 0.5
-  runStepInterval: 0.3
-  minimumSpeed: 0.5
-  footstepVolume: 5
+  stepDistance: 2
+  footstepVolume: 0.3
 --- !u!1 &1656957112 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1275296073236532, guid: 97c4750ee91a54b4a9e7f7464ab77873, type: 3}
@@ -6919,6 +6942,10 @@ MonoBehaviour:
   shakeIntensity: 0.1
   fadeOut: 1
   warningColor: {r: 1, g: 0, b: 0, a: 1}
+  crackSound: {fileID: 0}
+  crumbleSound: {fileID: 8300000, guid: 21f6ce43ccb58496888b6dca5fd70332, type: 3}
+  crackVolume: 0.6
+  crumbleVolume: 0.8
 --- !u!54 &1824638723
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7675,6 +7702,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!64 &2037465102
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8650,6 +8680,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8458592776310380110, guid: c37e9548d569f37448cecb7f53a03b77, type: 3}
+      propertyPath: bounceSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2e5b3fa1e3ff54144bcb155ff13c2a6b, type: 3}
+    - target: {fileID: 8458592776310380110, guid: c37e9548d569f37448cecb7f53a03b77, type: 3}
+      propertyPath: bounceVolume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8748,6 +8786,9 @@ MonoBehaviour:
   continueButton: {fileID: 0}
   completionMessage: Congratulations! Level Complete!
   restoreAmount: 30
+  collectSound: {fileID: 8300000, guid: 9706d2f6a0f7b4d5094687f7fe17c43b, type: 3}
+  levelCompleteSound: {fileID: 0}
+  collectVolume: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

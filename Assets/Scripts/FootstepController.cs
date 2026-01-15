@@ -7,21 +7,21 @@ public class FootstepController : MonoBehaviour
     public AudioSource audioSource;
     
     [Header("Footstep Timing")]
-    public float baseStepInterval = 0.5f;
-    public float runStepInterval = 0.3f;
-    public float minimumSpeed = 0.5f;  // Minimum speed to trigger footsteps
+    public float stepDistance = 2f;  // Distance traveled before next step
     
     [Header("Volume")]
     public float footstepVolume = 0.5f;
     
     private PlayerController playerController;
     private Rigidbody rb;
-    private float stepTimer = 0f;
+    private Vector3 lastStepPosition;
+    private bool wasMoving = false;  // Track if player was moving last frame
     
     void Start()
     {
         playerController = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
+        lastStepPosition = transform.position;
         
         // Create audio source if not assigned
         if (audioSource == null)
@@ -37,41 +37,40 @@ public class FootstepController : MonoBehaviour
         // Only play footsteps when grounded
         if (playerController != null && playerController.isGrounded)
         {
-            // Get horizontal velocity (movement speed)
+            // Check if player is actually moving
             Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            float currentSpeed = horizontalVelocity.magnitude;
+            bool isMoving = horizontalVelocity.magnitude > 0.5f;
             
-            // Check if player is moving fast enough
-            if (currentSpeed > minimumSpeed)
+            // Play immediate footstep when starting to move
+            if (isMoving && !wasMoving)
             {
-                stepTimer += Time.deltaTime;
+                PlayFootstepSound();
+                lastStepPosition = transform.position;
+            }
+            
+            // Calculate distance traveled since last step
+            if (isMoving)
+            {
+                float distanceMoved = Vector3.Distance(
+                    new Vector3(transform.position.x, 0f, transform.position.z), 
+                    new Vector3(lastStepPosition.x, 0f, lastStepPosition.z)
+                );
                 
-                // Determine step interval based on speed
-                float currentInterval = baseStepInterval;
-                
-                // Faster steps when speed boosted or running
-                if (currentSpeed > playerController.baseMoveSpeed * 1.5f)
-                {
-                    currentInterval = runStepInterval;
-                }
-                
-                // Play footstep at intervals
-                if (stepTimer >= currentInterval)
+                // Play footstep when player has moved enough distance
+                if (distanceMoved >= stepDistance)
                 {
                     PlayFootstepSound();
-                    stepTimer = 0f;
+                    lastStepPosition = transform.position;
                 }
             }
-            else
-            {
-                // Reset timer when standing still
-                stepTimer = 0f;
-            }
+            
+            wasMoving = isMoving;
         }
         else
         {
-            // Reset timer when in air
-            stepTimer = 0f;
+            // Update last position when not grounded (prevents step spam on landing)
+            lastStepPosition = transform.position;
+            wasMoving = false;
         }
     }
     
