@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ice
+  m_Name: IceMoving
   m_Shader: {fileID: -6465566751694194690, guid: 71bfed7c3300d68498d542471d29b399, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -98,7 +98,7 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0.5
     - _Mode: 0
-    - _Object_Space: 0
+    - _Object_Space: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Smoothness: 0

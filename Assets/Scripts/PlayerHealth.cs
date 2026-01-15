@@ -20,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
     
     [Header("Damage Settings")]
     public float damageAmount = 20f;
+    
     private float oxygenDepletionTimer = 0f;
     private bool oxygenDepleted = false;
     public float damageCooldown = 0.5f;

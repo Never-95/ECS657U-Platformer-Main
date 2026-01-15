@@ -9,7 +9,7 @@ public class Checkpoint : MonoBehaviour
 
     void Start()
     {
-        pos = new Vector3(transform.position.x, transform.position.y + 1.1f, transform.position.z);
+        pos = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
     }
 
     void Update()

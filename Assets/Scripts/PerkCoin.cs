@@ -14,6 +14,7 @@ public class PerkCoin : MonoBehaviour
     public string nextSceneName = "";
     public float levelEndDelay = 1f;
     public TextMeshProUGUI levelCompleteText;
+    public UIAssistant.ColoredButton continueButton;
     public string completionMessage = "Congratulations! Level Complete!";
     
     [Header ("Health/Oxygen Restore Settings")]
@@ -92,20 +93,26 @@ public class PerkCoin : MonoBehaviour
             levelCompleteText.gameObject.SetActive(true);
             levelCompleteText.text = completionMessage;
         }
-        
+        if (continueButton != null)
+        {
+            continueButton.gameObject.SetActive(true);
+            CameraSetting cameraSetting=FindAnyObjectByType<CameraSetting>();
+            cameraSetting.EndLevelCamera();
+        }
+
         yield return new WaitForSeconds(levelEndDelay);
         
         if (!string.IsNullOrEmpty(nextSceneName))
         {
             SceneManager.LoadScene(nextSceneName);
         }
-        else
-        {
-            #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-            #else
-            Application.Quit();
-            #endif
-        }
+        // else
+        // {
+        //     #if UNITY_EDITOR
+        //     UnityEditor.EditorApplication.isPlaying = false;
+        //     #else
+        //     Application.Quit();
+        //     #endif
+        // }
     }
 }
