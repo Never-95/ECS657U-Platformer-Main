@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Damage Settings")]
     public float damageAmount = 20f;
     
-    private float oxygenDepletionTimer = 0f;  // You named it this
+    private float oxygenDepletionTimer = 0f;
     private bool oxygenDepleted = false;
 
     public float damageCooldown = 0.5f;
@@ -37,12 +37,12 @@ public class PlayerHealth : MonoBehaviour
     
     void Update()
     {
-        oxygenDepletionTimer += Time.deltaTime;  // FIXED: was "oxygenTimer"
+        oxygenDepletionTimer += Time.deltaTime;
         
         if (oxygenDepletionTimer >= oxygenDepletionRate)
         {
             currentOxygen -= oxygenDepletionRate;
-            oxygenDepletionTimer = 0f;  // FIXED: was "oxygenTimer"
+            oxygenDepletionTimer = 0f;
             
             if (currentOxygen <= 0)
             {
@@ -58,7 +58,7 @@ public class PlayerHealth : MonoBehaviour
         
         if (oxygenDepleted)
         {
-            TakeDamage(damageAmount);  // FIXED: was "oxygenDamageAmount"
+            TakeDamage(damageAmount);
         }
     }
     
@@ -67,7 +67,7 @@ public class PlayerHealth : MonoBehaviour
         if (Time.time >= lastDamageTime + damageCooldown)
         {
             lastDamageTime = Time.time;
-            currentHealth -= amount;  // FIXED: was "damage"
+            currentHealth -= amount;
             Debug.Log("Player took " + amount + " damage.");
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             UpdateHealthBar();
@@ -85,10 +85,10 @@ public class PlayerHealth : MonoBehaviour
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         UpdateHealthBar();
-        Debug.Log("Player healed by " + amount + " points.");  // FIXED: capital L in Log
+        Debug.Log("Player healed by " + amount + " points.");
     }
     
-    public void RestoreOxygen(float amount)  // ADD THIS METHOD
+    public void RestoreOxygen(float amount)
     {
         currentOxygen += amount;
         currentOxygen = Mathf.Clamp(currentOxygen, 0f, maxOxygen);
