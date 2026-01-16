@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  moveSpeed: 5
-  rotationSpeed: 5
-  patrolRadius: 5
+  moveSpeed: 2
+  rotationSpeed: 3
+  patrolRadius: 6
   liftHeight: 10
   liftSpeed: 2
