@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip oxygenBurstSound;      // Sound when oxygen runs out
     public AudioClip suffocationSound;      // Continuous pain sound (looping)
     public float hitVolume = 0.7f;
+    public float burstVolume = 0.2f;
     public float suffocationVolume = 0.5f;
     
     private AudioSource audioSource;
@@ -77,7 +78,7 @@ public class PlayerHealth : MonoBehaviour
                     // Play oxygen burst sound
                     if (oxygenBurstSound != null && audioSource != null)
                     {
-                        audioSource.PlayOneShot(oxygenBurstSound, 0.8f);
+                        audioSource.PlayOneShot(oxygenBurstSound, burstVolume);
                     }
                     
                     // Start continuous suffocation sound
